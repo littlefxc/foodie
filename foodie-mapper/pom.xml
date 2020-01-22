@@ -9,6 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>foodie-common</artifactId>
+    <artifactId>foodie-mapper</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.fengxuechao</groupId>
+            <artifactId>foodie-pojo</artifactId>
+            <version>${foodie.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>

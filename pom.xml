@@ -10,9 +10,16 @@
 
     <packaging>pom</packaging>
 
+    <properties>
+        <foodie.version>1.0-SNAPSHOT</foodie.version>
+    </properties>
+
     <modules>
         <module>foodie-common</module>
         <module>foodie-pojo</module>
+        <module>foodie-mapper</module>
+        <module>foodie-service</module>
+        <module>foodie-api</module>
     </modules>
 
 </project>

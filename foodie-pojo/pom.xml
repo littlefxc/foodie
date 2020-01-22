@@ -11,5 +11,12 @@
 
     <artifactId>foodie-pojo</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.fengxuechao</groupId>
+            <artifactId>foodie-common</artifactId>
+            <version>${foodie.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
