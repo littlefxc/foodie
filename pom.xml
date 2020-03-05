@@ -16,6 +16,7 @@
         <module>foodie-mapper</module>
         <module>foodie-service</module>
         <module>foodie-api</module>
+        <module>generator</module>
     </modules>
 
     <properties>
