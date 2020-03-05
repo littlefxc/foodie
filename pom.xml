@@ -10,10 +10,6 @@
 
     <packaging>pom</packaging>
 
-    <properties>
-        <foodie.version>1.0-SNAPSHOT</foodie.version>
-    </properties>
-
     <modules>
         <module>foodie-common</module>
         <module>foodie-pojo</module>
@@ -21,5 +17,32 @@
         <module>foodie-service</module>
         <module>foodie-api</module>
     </modules>
+
+    <properties>
+        <foodie.version>1.0-SNAPSHOT</foodie.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <!--<parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.5.RELEASE</version>
+        <relativePath/>
+    </parent>-->
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.1.5.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
 
 </project>

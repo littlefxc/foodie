@@ -1,0 +1,1 @@
+CREATE SCHEMA `foodie-shop-dev` DEFAULT CHARACTER SET utf8mb4 ;
