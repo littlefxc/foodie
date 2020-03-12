@@ -5,6 +5,6 @@
 ############################################################
 # 通用 Mapper 配置
 mapper:
-  mappers: com.fengxuechao.my.mapper.MyMapper
+  mappers: com.fengxuechao.mapper.MyMapper
   not-empty: false
   identity: MYSQL
