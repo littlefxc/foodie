@@ -1,5 +1,7 @@
 # 使用MyBatis数据库逆向生成工具
 
+[MyBatis Generator 插件](https://mapperhelper.github.io/docs/3.usembg/)
+
 1. 在pom中引入通用mapper工具
 
   ```xml
