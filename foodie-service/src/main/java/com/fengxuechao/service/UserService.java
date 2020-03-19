@@ -29,4 +29,12 @@ public interface UserService {
      * @return 用户
      */
     Users queryUserForLogin(String username, String password);
+
+    /**
+     * 根据用户名查询用户
+     *
+     * @param username 用户名
+     * @return 用户
+     */
+    Users findByUsername(String username);
 }

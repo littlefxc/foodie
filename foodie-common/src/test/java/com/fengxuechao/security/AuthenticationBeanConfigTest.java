@@ -29,9 +29,20 @@ public class AuthenticationBeanConfigTest {
         passwordEncoder = new DelegatingPasswordEncoder(encodingId, encoders);
     }
 
+    /**
+     * Qpf0SxOVUjUkWySXOZ16kw==
+     */
     @Test
     public void bcrypt() {
         String encodePassword = passwordEncoder.encode("123456");
+        String encodePassword2 = passwordEncoder.encode("123456");
+        String encodePassword3 = passwordEncoder.encode("123456");
+        String encodePassword4 = passwordEncoder.encode("123456");
+        String encodePassword5 = passwordEncoder.encode("123456");
         System.out.println(encodePassword);
+        System.out.println(encodePassword2);
+        System.out.println(encodePassword3);
+        System.out.println(encodePassword4);
+        System.out.println(encodePassword5);
     }
 }

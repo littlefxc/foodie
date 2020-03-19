@@ -6,11 +6,10 @@ import com.fengxuechao.service.UserService;
 import com.fengxuechao.utils.CookieUtils;
 import com.fengxuechao.utils.ResultBean;
 import com.fengxuechao.utils.JsonUtils;
-import com.fengxuechao.utils.MD5Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,8 +25,11 @@ public class PassportController {
 
     private final UserService userService;
 
-    public PassportController(UserService userService) {
+    private final PasswordEncoder passwordEncoder;
+
+    public PassportController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @ApiOperation(value = "用户名是否存在", notes = "用户名是否存在", httpMethod = "GET")
@@ -112,11 +114,13 @@ public class PassportController {
         }
 
         // 1. 实现登录
-        Users userResult = userService.queryUserForLogin(username,
-                MD5Utils.getMD5Str(password));
+        Users userResult = userService.findByUsername(username);
 
         if (userResult == null) {
-            return ResultBean.errorMsg("用户名或密码不正确");
+            return ResultBean.errorMsg("用户名不存在");
+        }
+        if (passwordEncoder.matches(password, userResult.getPassword())) {
+            return ResultBean.errorMsg("密码错误");
         }
 
         userResult = setNullProperty(userResult);

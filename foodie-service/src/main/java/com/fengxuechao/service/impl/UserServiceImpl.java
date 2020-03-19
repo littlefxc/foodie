@@ -8,6 +8,8 @@ import com.fengxuechao.utils.DateUtil;
 import com.fengxuechao.utils.MD5Utils;
 import com.fengxuechao.utils.enums.Sex;
 import org.n3r.idworker.Sid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,14 +25,14 @@ public class UserServiceImpl implements UserService {
 
     private static final String USER_FACE = "http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png";
 
-    public final UsersMapper usersMapper;
+    @Autowired
+    public UsersMapper usersMapper;
 
-    private final Sid sid;
+    @Autowired
+    private Sid sid;
 
-    public UserServiceImpl(UsersMapper usersMapper, Sid sid) {
-        this.usersMapper = usersMapper;
-        this.sid = sid;
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
     @Override
@@ -62,7 +64,7 @@ public class UserServiceImpl implements UserService {
         user.setId(userId);
         user.setUsername(userBO.getUsername());
         try {
-            user.setPassword(MD5Utils.getMD5Str(userBO.getPassword()));
+            user.setPassword(passwordEncoder.encode(userBO.getPassword()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -98,6 +100,22 @@ public class UserServiceImpl implements UserService {
 
         userCriteria.andEqualTo("username", username);
         userCriteria.andEqualTo("password", password);
+
+        return usersMapper.selectOneByExample(userExample);
+    }
+
+    /**
+     * 根据用户名查询用户
+     *
+     * @param username 用户名
+     * @return 用户
+     */
+    @Override
+    public Users findByUsername(String username) {
+        Example userExample = new Example(Users.class);
+        Example.Criteria userCriteria = userExample.createCriteria();
+
+        userCriteria.andEqualTo("username", username);
 
         return usersMapper.selectOneByExample(userExample);
     }

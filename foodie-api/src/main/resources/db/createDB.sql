@@ -1838,13 +1838,30 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
+-- BEGIN;
+-- INSERT INTO `users` VALUES ('1908017YR51G1XWH', 'imooc', 'Qpf0SxOVUjUkWySXOZ16kw==', 'imooc', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-14 23:44:30', '2019-08-14 23:44:30');
+-- INSERT INTO `users` VALUES ('190815GTKCBSS7MW', 'test', 'Qpf0SxOVUjUkWySXOZ16kw==', 'test', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-15 22:11:58', '2019-08-15 22:11:58');
+-- INSERT INTO `users` VALUES ('190816HH9RDPD6Y8', 'abc', 'Qpf0SxOVUjUkWySXOZ16kw==', 'abc', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-16 23:14:12', '2019-08-16 23:14:12');
+-- INSERT INTO `users` VALUES ('1908189H7TNWDTXP', 'imooc123', 'Qpf0SxOVUjUkWySXOZ16kw==', 'imooc123', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-18 13:25:30', '2019-08-18 13:25:30');
+-- INSERT INTO `users` VALUES ('190818A4HC2BPDP0', 'test123', 'Qpf0SxOVUjUkWySXOZ16kw==', 'test123', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-18 14:14:28', '2019-08-18 14:14:28');
+-- INSERT INTO `users` VALUES ('190818AWZ22872FW', '1imooc', 'Qpf0SxOVUjUkWySXOZ16kw==', '1imooc', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-18 15:15:39', '2019-08-18 15:15:39');
+-- COMMIT;
+
+-- {bcrypt}$2a$10$4..jV3itI.SnUs37M2X8suxjiEQJwRakbwkncBH/yVcr0Y7.x
+-- {bcrypt}$2a$10$qbx9n3dHU/i8sQZ60T6FZ.yNRh02VSC1ro9iwhWSTKLnBEkym
+-- {bcrypt}$2a$10$p1mDunUpWT.KRc.PVhLgyuJNOOrUT63njMEp4G8OV0cnqkSwK
+-- {bcrypt}$2a$10$rKndKMZ6RPexIjaTklpAgecSJ8mcMVDn6bpsyiaSu8l2ce/wD
+-- {bcrypt}$2a$10$tUyzJAH3YgNlqowFmsmrEeU/iXZON7.aJ9xiO3eZoRE03NY.v
+-- {bcrypt}$2a$10$Unlf8R0i1eDKEP4DvBSPke0l1P9yahliexcgkDhCzcx5Nbm4j
+
+
 BEGIN;
-INSERT INTO `users` VALUES ('1908017YR51G1XWH', 'imooc', 'Qpf0SxOVUjUkWySXOZ16kw==', 'imooc', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-14 23:44:30', '2019-08-14 23:44:30');
-INSERT INTO `users` VALUES ('190815GTKCBSS7MW', 'test', 'Qpf0SxOVUjUkWySXOZ16kw==', 'test', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-15 22:11:58', '2019-08-15 22:11:58');
-INSERT INTO `users` VALUES ('190816HH9RDPD6Y8', 'abc', 'Qpf0SxOVUjUkWySXOZ16kw==', 'abc', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-16 23:14:12', '2019-08-16 23:14:12');
-INSERT INTO `users` VALUES ('1908189H7TNWDTXP', 'imooc123', 'Qpf0SxOVUjUkWySXOZ16kw==', 'imooc123', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-18 13:25:30', '2019-08-18 13:25:30');
-INSERT INTO `users` VALUES ('190818A4HC2BPDP0', 'test123', 'Qpf0SxOVUjUkWySXOZ16kw==', 'test123', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-18 14:14:28', '2019-08-18 14:14:28');
-INSERT INTO `users` VALUES ('190818AWZ22872FW', '1imooc', 'Qpf0SxOVUjUkWySXOZ16kw==', '1imooc', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-18 15:15:39', '2019-08-18 15:15:39');
+INSERT INTO `users` VALUES ('1908017YR51G1XWH', 'imooc', '{bcrypt}$2a$10$4..jV3itI.SnUs37M2X8suxjiEQJwRakbwkncBH/yVcr0Y7.x', 'imooc', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-14 23:44:30', '2019-08-14 23:44:30');
+INSERT INTO `users` VALUES ('190815GTKCBSS7MW', 'test', '{bcrypt}$2a$10$qbx9n3dHU/i8sQZ60T6FZ.yNRh02VSC1ro9iwhWSTKLnBEkym', 'test', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-15 22:11:58', '2019-08-15 22:11:58');
+INSERT INTO `users` VALUES ('190816HH9RDPD6Y8', 'abc', '{bcrypt}$2a$10$p1mDunUpWT.KRc.PVhLgyuJNOOrUT63njMEp4G8OV0cnqkSwK', 'abc', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-16 23:14:12', '2019-08-16 23:14:12');
+INSERT INTO `users` VALUES ('1908189H7TNWDTXP', 'imooc123', '{bcrypt}$2a$10$rKndKMZ6RPexIjaTklpAgecSJ8mcMVDn6bpsyiaSu8l2ce/wD', 'imooc123', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-18 13:25:30', '2019-08-18 13:25:30');
+INSERT INTO `users` VALUES ('190818A4HC2BPDP0', 'test123', '{bcrypt}$2a$10$tUyzJAH3YgNlqowFmsmrEeU/iXZON7.aJ9xiO3eZoRE03NY.v', 'test123', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-18 14:14:28', '2019-08-18 14:14:28');
+INSERT INTO `users` VALUES ('190818AWZ22872FW', '1imooc', '{bcrypt}$2a$10$Unlf8R0i1eDKEP4DvBSPke0l1P9yahliexcgkDhCzcx5Nbm4j', '1imooc', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-18 15:15:39', '2019-08-18 15:15:39');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
