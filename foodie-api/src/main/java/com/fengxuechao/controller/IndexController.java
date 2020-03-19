@@ -6,7 +6,7 @@ import com.fengxuechao.pojo.vo.CategoryVO;
 import com.fengxuechao.pojo.vo.NewItemsVO;
 import com.fengxuechao.service.CarouselService;
 import com.fengxuechao.service.CategoryService;
-import com.fengxuechao.utils.JsonResult;
+import com.fengxuechao.utils.ResultBean;
 import com.fengxuechao.utils.enums.YesOrNo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,9 +32,9 @@ public class IndexController {
 
     @ApiOperation(value = "获取首页轮播图列表", notes = "获取首页轮播图列表", httpMethod = "GET")
     @GetMapping("/carousel")
-    public JsonResult carousel() {
+    public ResultBean carousel() {
         List<Carousel> list = carouselService.queryAll(YesOrNo.YES.type);
-        return JsonResult.ok(list);
+        return ResultBean.ok(list);
     }
 
     /**
@@ -44,37 +44,37 @@ public class IndexController {
      */
     @ApiOperation(value = "获取商品分类(一级分类)", notes = "获取商品分类(一级分类)", httpMethod = "GET")
     @GetMapping("/cats")
-    public JsonResult cats() {
+    public ResultBean cats() {
         List<Category> list = categoryService.queryAllRootLevelCat();
-        return JsonResult.ok(list);
+        return ResultBean.ok(list);
     }
 
     @ApiOperation(value = "获取商品子分类", notes = "获取商品子分类", httpMethod = "GET")
     @GetMapping("/subCat/{rootCatId}")
-    public JsonResult subCat(
+    public ResultBean subCat(
             @ApiParam(name = "rootCatId", value = "一级分类id", required = true)
             @PathVariable Integer rootCatId) {
 
         if (rootCatId == null) {
-            return JsonResult.errorMsg("分类不存在");
+            return ResultBean.errorMsg("分类不存在");
         }
 
         List<CategoryVO> list = categoryService.getSubCatList(rootCatId);
-        return JsonResult.ok(list);
+        return ResultBean.ok(list);
     }
 
     @ApiOperation(value = "查询每个一级分类下的最新6条商品数据", notes = "查询每个一级分类下的最新6条商品数据", httpMethod = "GET")
     @GetMapping("/sixNewItems/{rootCatId}")
-    public JsonResult sixNewItems(
+    public ResultBean sixNewItems(
             @ApiParam(name = "rootCatId", value = "一级分类id", required = true)
             @PathVariable Integer rootCatId) {
 
         if (rootCatId == null) {
-            return JsonResult.errorMsg("分类不存在");
+            return ResultBean.errorMsg("分类不存在");
         }
 
         List<NewItemsVO> list = categoryService.getSixNewItemsLazy(rootCatId);
-        return JsonResult.ok(list);
+        return ResultBean.ok(list);
     }
 
 }

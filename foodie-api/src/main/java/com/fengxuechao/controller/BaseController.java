@@ -2,7 +2,7 @@ package com.fengxuechao.controller;
 
 import com.fengxuechao.pojo.Orders;
 import com.fengxuechao.service.center.MyOrdersService;
-import com.fengxuechao.utils.JsonResult;
+import com.fengxuechao.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -38,11 +38,11 @@ public class BaseController {
      * 用于验证用户和订单是否有关联关系，避免非法用户调用
      * @return
      */
-    public JsonResult checkUserOrder(String userId, String orderId) {
+    public ResultBean checkUserOrder(String userId, String orderId) {
         Orders order = myOrdersService.queryMyOrder(userId, orderId);
         if (order == null) {
-            return JsonResult.errorMsg("订单不存在！");
+            return ResultBean.errorMsg("订单不存在！");
         }
-        return JsonResult.ok(order);
+        return ResultBean.ok(order);
     }
 }

@@ -2,7 +2,7 @@ package com.fengxuechao.controller.center;
 
 import com.fengxuechao.pojo.Users;
 import com.fengxuechao.service.center.CenterUserService;
-import com.fengxuechao.utils.JsonResult;
+import com.fengxuechao.utils.ResultBean;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -22,12 +22,12 @@ public class CenterController {
 
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息", httpMethod = "GET")
     @GetMapping("userInfo")
-    public JsonResult userInfo(
+    public ResultBean userInfo(
             @ApiParam(name = "userId", value = "用户id", required = true)
             @RequestParam String userId) {
 
         Users user = centerUserService.queryUserInfo(userId);
-        return JsonResult.ok(user);
+        return ResultBean.ok(user);
     }
 
 

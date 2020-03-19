@@ -5,7 +5,7 @@ import com.fengxuechao.pojo.bo.SubmitOrderBO;
 import com.fengxuechao.pojo.vo.MerchantOrdersVO;
 import com.fengxuechao.pojo.vo.OrderVO;
 import com.fengxuechao.service.OrderService;
-import com.fengxuechao.utils.JsonResult;
+import com.fengxuechao.utils.ResultBean;
 import com.fengxuechao.utils.enums.OrderStatusEnum;
 import com.fengxuechao.utils.enums.PayMethod;
 import io.swagger.annotations.Api;
@@ -38,14 +38,14 @@ public class OrdersController extends BaseController {
 
     @ApiOperation(value = "用户下单", notes = "用户下单", httpMethod = "POST")
     @PostMapping("/create")
-    public JsonResult create(
+    public ResultBean create(
             @RequestBody SubmitOrderBO submitOrderBO,
             HttpServletRequest request,
             HttpServletResponse response) {
 
         if (submitOrderBO.getPayMethod() != PayMethod.WEIXIN.type
             && submitOrderBO.getPayMethod() != PayMethod.ALIPAY.type ) {
-            return JsonResult.errorMsg("支付方式不支持！");
+            return ResultBean.errorMsg("支付方式不支持！");
         }
 
 //        System.out.println(submitOrderBO.toString());
@@ -79,17 +79,17 @@ public class OrdersController extends BaseController {
         HttpEntity<MerchantOrdersVO> entity =
                 new HttpEntity<>(merchantOrdersVO, headers);
 
-        ResponseEntity<JsonResult> responseEntity =
+        ResponseEntity<ResultBean> responseEntity =
                 restTemplate.postForEntity(paymentUrl,
                                             entity,
-                                            JsonResult.class);
-        JsonResult paymentResult = responseEntity.getBody();
+                                            ResultBean.class);
+        ResultBean paymentResult = responseEntity.getBody();
         if (paymentResult.getStatus() != 200) {
             logger.error("发送错误：{}", paymentResult.getMsg());
-            return JsonResult.errorMsg("支付中心订单创建失败，请联系管理员！");
+            return ResultBean.errorMsg("支付中心订单创建失败，请联系管理员！");
         }
 
-        return JsonResult.ok(orderId);
+        return ResultBean.ok(orderId);
     }
 
     @PostMapping("notifyMerchantOrderPaid")
@@ -99,9 +99,9 @@ public class OrdersController extends BaseController {
     }
 
     @PostMapping("getPaidOrderInfo")
-    public JsonResult getPaidOrderInfo(String orderId) {
+    public ResultBean getPaidOrderInfo(String orderId) {
 
         OrderStatus orderStatus = orderService.queryOrderStatusInfo(orderId);
-        return JsonResult.ok(orderStatus);
+        return ResultBean.ok(orderStatus);
     }
 }

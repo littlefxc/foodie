@@ -5,7 +5,7 @@ import com.fengxuechao.pojo.OrderItems;
 import com.fengxuechao.pojo.Orders;
 import com.fengxuechao.pojo.bo.center.OrderItemsCommentBO;
 import com.fengxuechao.service.center.MyCommentsService;
-import com.fengxuechao.utils.JsonResult;
+import com.fengxuechao.utils.ResultBean;
 import com.fengxuechao.utils.PagedGridResult;
 import com.fengxuechao.utils.enums.YesOrNo;
 import io.swagger.annotations.Api;
@@ -28,32 +28,32 @@ public class MyCommentsController extends BaseController {
 
     @ApiOperation(value = "查询订单列表", notes = "查询订单列表", httpMethod = "POST")
     @PostMapping("/pending")
-    public JsonResult pending(
+    public ResultBean pending(
             @ApiParam(name = "userId", value = "用户id", required = true)
             @RequestParam String userId,
             @ApiParam(name = "orderId", value = "订单id", required = true)
             @RequestParam String orderId) {
 
         // 判断用户和订单是否关联
-        JsonResult checkResult = checkUserOrder(userId, orderId);
+        ResultBean checkResult = checkUserOrder(userId, orderId);
         if (checkResult.getStatus() != HttpStatus.OK.value()) {
             return checkResult;
         }
         // 判断该笔订单是否已经评价过，评价过了就不再继续
         Orders myOrder = (Orders) checkResult.getData();
         if (myOrder.getIsComment() == YesOrNo.YES.type) {
-            return JsonResult.errorMsg("该笔订单已经评价");
+            return ResultBean.errorMsg("该笔订单已经评价");
         }
 
         List<OrderItems> list = myCommentsService.queryPendingComment(orderId);
 
-        return JsonResult.ok(list);
+        return ResultBean.ok(list);
     }
 
 
     @ApiOperation(value = "保存评论列表", notes = "保存评论列表", httpMethod = "POST")
     @PostMapping("/saveList")
-    public JsonResult saveList(
+    public ResultBean saveList(
             @ApiParam(name = "userId", value = "用户id", required = true)
             @RequestParam String userId,
             @ApiParam(name = "orderId", value = "订单id", required = true)
@@ -63,22 +63,22 @@ public class MyCommentsController extends BaseController {
         System.out.println(commentList);
 
         // 判断用户和订单是否关联
-        JsonResult checkResult = checkUserOrder(userId, orderId);
+        ResultBean checkResult = checkUserOrder(userId, orderId);
         if (checkResult.getStatus() != HttpStatus.OK.value()) {
             return checkResult;
         }
         // 判断评论内容list不能为空
         if (commentList == null || commentList.isEmpty() || commentList.size() == 0) {
-            return JsonResult.errorMsg("评论内容不能为空！");
+            return ResultBean.errorMsg("评论内容不能为空！");
         }
 
         myCommentsService.saveComments(orderId, userId, commentList);
-        return JsonResult.ok();
+        return ResultBean.ok();
     }
 
     @ApiOperation(value = "查询我的评价", notes = "查询我的评价", httpMethod = "POST")
     @PostMapping("/query")
-    public JsonResult query(
+    public ResultBean query(
             @ApiParam(name = "userId", value = "用户id", required = true)
             @RequestParam String userId,
             @ApiParam(name = "page", value = "查询下一页的第几页", required = false)
@@ -87,7 +87,7 @@ public class MyCommentsController extends BaseController {
             @RequestParam Integer pageSize) {
 
         if (StringUtils.isBlank(userId)) {
-            return JsonResult.errorMsg(null);
+            return ResultBean.errorMsg(null);
         }
         if (page == null) {
             page = 1;
@@ -100,7 +100,7 @@ public class MyCommentsController extends BaseController {
                 page,
                 pageSize);
 
-        return JsonResult.ok(grid);
+        return ResultBean.ok(grid);
     }
 
 }

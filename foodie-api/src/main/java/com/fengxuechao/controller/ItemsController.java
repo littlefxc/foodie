@@ -8,7 +8,7 @@ import com.fengxuechao.pojo.vo.CommentLevelCountsVO;
 import com.fengxuechao.pojo.vo.ItemInfoVO;
 import com.fengxuechao.pojo.vo.ShopcartVO;
 import com.fengxuechao.service.ItemService;
-import com.fengxuechao.utils.JsonResult;
+import com.fengxuechao.utils.ResultBean;
 import com.fengxuechao.utils.PagedGridResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,12 +29,12 @@ public class ItemsController extends BaseController {
 
     @ApiOperation(value = "查询商品详情", notes = "查询商品详情", httpMethod = "GET")
     @GetMapping("/info/{itemId}")
-    public JsonResult info(
+    public ResultBean info(
             @ApiParam(name = "itemId", value = "商品id", required = true)
             @PathVariable String itemId) {
 
         if (StringUtils.isBlank(itemId)) {
-            return JsonResult.errorMsg(null);
+            return ResultBean.errorMsg(null);
         }
 
         Items item = itemService.queryItemById(itemId);
@@ -48,27 +48,27 @@ public class ItemsController extends BaseController {
         itemInfoVO.setItemSpecList(itemsSpecList);
         itemInfoVO.setItemParams(itemsParam);
 
-        return JsonResult.ok(itemInfoVO);
+        return ResultBean.ok(itemInfoVO);
     }
 
     @ApiOperation(value = "查询商品评价等级", notes = "查询商品评价等级", httpMethod = "GET")
     @GetMapping("/commentLevel")
-    public JsonResult commentLevel(
+    public ResultBean commentLevel(
             @ApiParam(name = "itemId", value = "商品id", required = true)
             @RequestParam String itemId) {
 
         if (StringUtils.isBlank(itemId)) {
-            return JsonResult.errorMsg(null);
+            return ResultBean.errorMsg(null);
         }
 
         CommentLevelCountsVO countsVO = itemService.queryCommentCounts(itemId);
 
-        return JsonResult.ok(countsVO);
+        return ResultBean.ok(countsVO);
     }
 
     @ApiOperation(value = "查询商品评论", notes = "查询商品评论", httpMethod = "GET")
     @GetMapping("/comments")
-    public JsonResult comments(
+    public ResultBean comments(
             @ApiParam(name = "itemId", value = "商品id", required = true)
             @RequestParam String itemId,
             @ApiParam(name = "level", value = "评价等级", required = false)
@@ -79,7 +79,7 @@ public class ItemsController extends BaseController {
             @RequestParam Integer pageSize) {
 
         if (StringUtils.isBlank(itemId)) {
-            return JsonResult.errorMsg(null);
+            return ResultBean.errorMsg(null);
         }
 
         if (page == null) {
@@ -95,12 +95,12 @@ public class ItemsController extends BaseController {
                                                                 page,
                                                                 pageSize);
 
-        return JsonResult.ok(grid);
+        return ResultBean.ok(grid);
     }
 
     @ApiOperation(value = "搜索商品列表", notes = "搜索商品列表", httpMethod = "GET")
     @GetMapping("/search")
-    public JsonResult search(
+    public ResultBean search(
             @ApiParam(name = "keywords", value = "关键字", required = true)
             @RequestParam String keywords,
             @ApiParam(name = "sort", value = "排序", required = false)
@@ -111,7 +111,7 @@ public class ItemsController extends BaseController {
             @RequestParam Integer pageSize) {
 
         if (StringUtils.isBlank(keywords)) {
-            return JsonResult.errorMsg(null);
+            return ResultBean.errorMsg(null);
         }
 
         if (page == null) {
@@ -127,12 +127,12 @@ public class ItemsController extends BaseController {
                                                         page,
                                                         pageSize);
 
-        return JsonResult.ok(grid);
+        return ResultBean.ok(grid);
     }
 
     @ApiOperation(value = "通过分类id搜索商品列表", notes = "通过分类id搜索商品列表", httpMethod = "GET")
     @GetMapping("/catItems")
-    public JsonResult catItems(
+    public ResultBean catItems(
             @ApiParam(name = "catId", value = "三级分类id", required = true)
             @RequestParam Integer catId,
             @ApiParam(name = "sort", value = "排序", required = false)
@@ -143,7 +143,7 @@ public class ItemsController extends BaseController {
             @RequestParam Integer pageSize) {
 
         if (catId == null) {
-            return JsonResult.errorMsg(null);
+            return ResultBean.errorMsg(null);
         }
 
         if (page == null) {
@@ -159,22 +159,22 @@ public class ItemsController extends BaseController {
                 page,
                 pageSize);
 
-        return JsonResult.ok(grid);
+        return ResultBean.ok(grid);
     }
 
     // 用于用户长时间未登录网站，刷新购物车中的数据（主要是商品价格），类似京东淘宝
     @ApiOperation(value = "根据商品规格ids查找最新的商品数据", notes = "根据商品规格ids查找最新的商品数据", httpMethod = "GET")
     @GetMapping("/refresh")
-    public JsonResult refresh(
+    public ResultBean refresh(
             @ApiParam(name = "itemSpecIds", value = "拼接的规格ids", required = true, example = "1001,1003,1005")
             @RequestParam String itemSpecIds) {
 
         if (StringUtils.isBlank(itemSpecIds)) {
-            return JsonResult.ok();
+            return ResultBean.ok();
         }
 
         List<ShopcartVO> list = itemService.queryItemsBySpecIds(itemSpecIds);
 
-        return JsonResult.ok(list);
+        return ResultBean.ok(list);
     }
 }
