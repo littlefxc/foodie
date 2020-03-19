@@ -1,8 +1,11 @@
 package com.fengxuechao.pojo.vo;
 
+import lombok.Data;
+
 /**
  * 订单状态概览数量VO 
  */
+@Data
 public class OrderStatusCountsVO {
 
     private Integer waitPayCounts;

@@ -1,5 +1,8 @@
 package com.fengxuechao.pojo.bo.center;
 
+import lombok.Data;
+
+@Data
 public class OrderItemsCommentBO {
 
     private String commentId;

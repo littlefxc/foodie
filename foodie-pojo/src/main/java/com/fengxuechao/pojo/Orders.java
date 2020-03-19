@@ -1,8 +1,11 @@
 package com.fengxuechao.pojo;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 
+@Data
 @Table(name = "orders")
 public class Orders {
     /**

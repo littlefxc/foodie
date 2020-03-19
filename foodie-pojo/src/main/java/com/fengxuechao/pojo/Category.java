@@ -1,7 +1,10 @@
 package com.fengxuechao.pojo;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Table(name = "category")
 public class Category {
     /**

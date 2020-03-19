@@ -5,12 +5,14 @@ import com.fengxuechao.pojo.Items;
 import com.fengxuechao.pojo.ItemsImg;
 import com.fengxuechao.pojo.ItemsParam;
 import com.fengxuechao.pojo.ItemsSpec;
+import lombok.Data;
 
 import java.util.List;
 
 /**
  * 商品详情VO
  */
+@Data
 public class ItemInfoVO {
 
     private Items item;

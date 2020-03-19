@@ -1,10 +1,13 @@
 package com.fengxuechao.pojo.vo;
 
+import lombok.Data;
+
 import java.util.List;
 
 /**
  * 最新商品VO
  */
+@Data
 public class NewItemsVO {
 
     private Integer rootCatId;

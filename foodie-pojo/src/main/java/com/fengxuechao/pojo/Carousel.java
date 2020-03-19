@@ -1,10 +1,13 @@
 package com.fengxuechao.pojo;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
+@Data
 @Table(name = "carousel")
 public class Carousel {
     /**

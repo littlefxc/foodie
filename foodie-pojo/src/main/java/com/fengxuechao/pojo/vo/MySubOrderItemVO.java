@@ -1,8 +1,11 @@
 package com.fengxuechao.pojo.vo;
 
+import lombok.Data;
+
 /**
  * 用户中心，我的订单列表嵌套商品VO
  */
+@Data
 public class MySubOrderItemVO {
 
     private String itemId;

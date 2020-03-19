@@ -1,5 +1,8 @@
 package com.fengxuechao.pojo.bo;
 
+import lombok.Data;
+
+@Data
 public class ShopcartBO {
 
     private String itemId;

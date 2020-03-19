@@ -1,8 +1,11 @@
 package com.fengxuechao.pojo.bo;
 
+import lombok.Data;
+
 /**
  * 用户新增或修改地址的BO
  */
+@Data
 public class AddressBO {
 
     private String addressId;

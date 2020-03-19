@@ -8,7 +8,6 @@ import com.fengxuechao.utils.DateUtil;
 import com.fengxuechao.utils.MD5Utils;
 import com.fengxuechao.utils.enums.Sex;
 import org.n3r.idworker.Sid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,18 +15,24 @@ import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
 
+/**
+ * @author fengxuechao
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    public UsersMapper usersMapper;
-
-    @Autowired
-    private Sid sid;
-
     private static final String USER_FACE = "http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png";
 
-    @Transactional(propagation = Propagation.SUPPORTS)
+    public final UsersMapper usersMapper;
+
+    private final Sid sid;
+
+    public UserServiceImpl(UsersMapper usersMapper, Sid sid) {
+        this.usersMapper = usersMapper;
+        this.sid = sid;
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
     @Override
     public boolean queryUsernameIsExist(String username) {
 
@@ -38,10 +43,10 @@ public class UserServiceImpl implements UserService {
 
         Users result = usersMapper.selectOneByExample(userExample);
 
-        return result == null ? false : true;
+        return result != null;
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
     public Users createUser(UserBO userBO) {
 
@@ -78,7 +83,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    @Transactional(propagation = Propagation.SUPPORTS)
+    @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
     @Override
     public Users queryUserForLogin(String username, String password) {
 
@@ -94,8 +99,6 @@ public class UserServiceImpl implements UserService {
         userCriteria.andEqualTo("username", username);
         userCriteria.andEqualTo("password", password);
 
-        Users result = usersMapper.selectOneByExample(userExample);
-
-        return result;
+        return usersMapper.selectOneByExample(userExample);
     }
 }

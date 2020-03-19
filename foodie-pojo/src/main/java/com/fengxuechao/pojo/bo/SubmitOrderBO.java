@@ -1,8 +1,11 @@
 package com.fengxuechao.pojo.bo;
 
+import lombok.Data;
+
 /**
  * 用于创建订单的BO对象
  */
+@Data
 public class SubmitOrderBO {
 
     private String userId;
