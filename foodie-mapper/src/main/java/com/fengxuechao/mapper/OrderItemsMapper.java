@@ -1,7 +1,9 @@
 package com.fengxuechao.mapper;
 
+import com.fengxuechao.my.mapper.MyMapper;
 import com.fengxuechao.pojo.OrderItems;
-import tk.mybatis.mapper.common.Mapper;
+import org.springframework.stereotype.Component;
 
-public interface OrderItemsMapper extends Mapper<OrderItems> {
+@Component
+public interface OrderItemsMapper extends MyMapper<OrderItems> {
 }

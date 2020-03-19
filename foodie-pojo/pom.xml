@@ -17,6 +17,12 @@
             <artifactId>foodie-common</artifactId>
             <version>${foodie.version}</version>
         </dependency>
+        <!-- 打包war [3] 添加依赖 -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 </project>

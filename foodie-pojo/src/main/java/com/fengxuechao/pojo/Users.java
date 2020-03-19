@@ -1,6 +1,7 @@
 package com.fengxuechao.pojo;
 
 import java.util.Date;
+import javax.persistence.*;
 
 @Table(name = "users")
 public class Users {

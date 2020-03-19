@@ -1,7 +1,9 @@
 package com.fengxuechao.mapper;
 
+import com.fengxuechao.my.mapper.MyMapper;
 import com.fengxuechao.pojo.Category;
-import tk.mybatis.mapper.common.Mapper;
+import org.springframework.stereotype.Component;
 
-public interface CategoryMapper extends Mapper<Category> {
+@Component
+public interface CategoryMapper extends MyMapper<Category> {
 }

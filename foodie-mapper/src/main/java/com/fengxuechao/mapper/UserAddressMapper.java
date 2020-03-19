@@ -1,7 +1,9 @@
 package com.fengxuechao.mapper;
 
+import com.fengxuechao.my.mapper.MyMapper;
 import com.fengxuechao.pojo.UserAddress;
-import tk.mybatis.mapper.common.Mapper;
+import org.springframework.stereotype.Component;
 
-public interface UserAddressMapper extends Mapper<UserAddress> {
+@Component
+public interface UserAddressMapper extends MyMapper<UserAddress> {
 }

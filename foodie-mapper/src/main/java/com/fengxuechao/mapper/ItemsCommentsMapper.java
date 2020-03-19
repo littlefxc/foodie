@@ -1,7 +1,9 @@
 package com.fengxuechao.mapper;
 
+import com.fengxuechao.my.mapper.MyMapper;
 import com.fengxuechao.pojo.ItemsComments;
-import tk.mybatis.mapper.common.Mapper;
+import org.springframework.stereotype.Component;
 
-public interface ItemsCommentsMapper extends Mapper<ItemsComments> {
+@Component
+public interface ItemsCommentsMapper extends MyMapper<ItemsComments> {
 }

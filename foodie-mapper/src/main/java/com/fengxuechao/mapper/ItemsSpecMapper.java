@@ -1,7 +1,9 @@
 package com.fengxuechao.mapper;
 
+import com.fengxuechao.my.mapper.MyMapper;
 import com.fengxuechao.pojo.ItemsSpec;
-import tk.mybatis.mapper.common.Mapper;
+import org.springframework.stereotype.Component;
 
-public interface ItemsSpecMapper extends Mapper<ItemsSpec> {
+@Component
+public interface ItemsSpecMapper extends MyMapper<ItemsSpec> {
 }

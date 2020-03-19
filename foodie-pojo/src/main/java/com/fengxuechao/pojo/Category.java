@@ -1,5 +1,7 @@
 package com.fengxuechao.pojo;
 
+import javax.persistence.*;
+
 @Table(name = "category")
 public class Category {
     /**

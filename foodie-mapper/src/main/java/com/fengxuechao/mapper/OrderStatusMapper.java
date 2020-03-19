@@ -1,7 +1,9 @@
 package com.fengxuechao.mapper;
 
+import com.fengxuechao.my.mapper.MyMapper;
 import com.fengxuechao.pojo.OrderStatus;
-import tk.mybatis.mapper.common.Mapper;
+import org.springframework.stereotype.Component;
 
-public interface OrderStatusMapper extends Mapper<OrderStatus> {
+@Component
+public interface OrderStatusMapper extends MyMapper<OrderStatus> {
 }

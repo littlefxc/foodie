@@ -1,5 +1,7 @@
 package com.fengxuechao.pojo;
 
+import javax.persistence.*;
+
 @Table(name = "order_items")
 public class OrderItems {
     /**

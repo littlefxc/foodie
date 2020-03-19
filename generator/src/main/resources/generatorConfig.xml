@@ -43,5 +43,6 @@
         <table tableName="orders"></table>
         <table tableName="user_address"></table>
         <table tableName="users"></table>
+        <table tableName="carousel"></table>
     </context>
 </generatorConfiguration>
