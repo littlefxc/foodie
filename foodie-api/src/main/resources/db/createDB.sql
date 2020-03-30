@@ -1822,7 +1822,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
                          `id` varchar(64) NOT NULL COMMENT '主键id 用户id',
                          `username` varchar(32) NOT NULL COMMENT '用户名 用户名',
-                         `password` varchar(64) NOT NULL COMMENT '密码 密码',
+                         `password` varchar(68) NOT NULL COMMENT '密码 密码',
                          `nickname` varchar(32) DEFAULT NULL COMMENT '昵称 昵称',
                          `realname` varchar(128) DEFAULT NULL COMMENT '真实姓名',
                          `face` varchar(1024) NOT NULL COMMENT '头像',

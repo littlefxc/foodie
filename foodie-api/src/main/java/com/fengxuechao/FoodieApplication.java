@@ -17,8 +17,8 @@ import tk.mybatis.spring.annotation.MapperScan;
 //@EnableTransactionManagement
 @EnableScheduling       // 开启定时任务
 @SpringBootApplication
-public class Application {
+public class FoodieApplication {
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(FoodieApplication.class, args);
     }
 }

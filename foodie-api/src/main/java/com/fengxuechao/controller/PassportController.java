@@ -119,7 +119,7 @@ public class PassportController {
         if (userResult == null) {
             return ResultBean.errorMsg("用户名不存在");
         }
-        if (passwordEncoder.matches(password, userResult.getPassword())) {
+        if (!passwordEncoder.matches(password, userResult.getPassword())) {
             return ResultBean.errorMsg("密码错误");
         }
 
