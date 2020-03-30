@@ -11,7 +11,7 @@ public interface OrderService {
      *
      * @param submitOrderBO
      */
-    public OrderVO createOrder(SubmitOrderBO submitOrderBO);
+    OrderVO createOrder(SubmitOrderBO submitOrderBO);
 
     /**
      * 修改订单状态
@@ -19,7 +19,7 @@ public interface OrderService {
      * @param orderId
      * @param orderStatus
      */
-    public void updateOrderStatus(String orderId, Integer orderStatus);
+    void updateOrderStatus(String orderId, Integer orderStatus);
 
     /**
      * 查询订单状态
@@ -27,10 +27,10 @@ public interface OrderService {
      * @param orderId
      * @return
      */
-    public OrderStatus queryOrderStatusInfo(String orderId);
+    OrderStatus queryOrderStatusInfo(String orderId);
 
     /**
      * 关闭超时未支付订单
      */
-    public void closeOrder();
+    void closeOrder();
 }
