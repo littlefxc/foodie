@@ -42,6 +42,8 @@ mybatis:
   type-aliases-package: com.fengxuechao.pojo    # 所有POJO类所在包路径
   mapper-locations: classpath:mapper/*.xml      # mapper映射文件
   identity: MYSQL
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 # 分页插件配置
 pagehelper:
   helperDialect: mysql
