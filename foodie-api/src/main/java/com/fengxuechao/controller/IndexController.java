@@ -32,7 +32,7 @@ public class IndexController {
 
     @ApiOperation(value = "获取首页轮播图列表", notes = "获取首页轮播图列表", httpMethod = "GET")
     @GetMapping("/carousel")
-    public ResultBean carousel() {
+    public ResultBean<Object> carousel() {
         List<Carousel> list = carouselService.queryAll(YesOrNo.YES.type);
         return ResultBean.ok(list);
     }
@@ -44,14 +44,14 @@ public class IndexController {
      */
     @ApiOperation(value = "获取商品分类(一级分类)", notes = "获取商品分类(一级分类)", httpMethod = "GET")
     @GetMapping("/cats")
-    public ResultBean cats() {
+    public ResultBean<Object> cats() {
         List<Category> list = categoryService.queryAllRootLevelCat();
         return ResultBean.ok(list);
     }
 
     @ApiOperation(value = "获取商品子分类", notes = "获取商品子分类", httpMethod = "GET")
     @GetMapping("/subCat/{rootCatId}")
-    public ResultBean subCat(
+    public ResultBean<Object> subCat(
             @ApiParam(name = "rootCatId", value = "一级分类id", required = true)
             @PathVariable Integer rootCatId) {
 
@@ -65,7 +65,7 @@ public class IndexController {
 
     @ApiOperation(value = "查询每个一级分类下的最新6条商品数据", notes = "查询每个一级分类下的最新6条商品数据", httpMethod = "GET")
     @GetMapping("/sixNewItems/{rootCatId}")
-    public ResultBean sixNewItems(
+    public ResultBean<Object> sixNewItems(
             @ApiParam(name = "rootCatId", value = "一级分类id", required = true)
             @PathVariable Integer rootCatId) {
 
