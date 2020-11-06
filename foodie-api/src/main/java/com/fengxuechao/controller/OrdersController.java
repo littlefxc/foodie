@@ -43,8 +43,8 @@ public class OrdersController extends BaseController {
             HttpServletRequest request,
             HttpServletResponse response) {
 
-        if (submitOrderBO.getPayMethod() != PayMethod.WEIXIN.type
-            && submitOrderBO.getPayMethod() != PayMethod.ALIPAY.type ) {
+        if (!submitOrderBO.getPayMethod().equals(PayMethod.WEIXIN.type)
+                && !submitOrderBO.getPayMethod().equals(PayMethod.ALIPAY.type)) {
             return ResultBean.errorMsg("支付方式不支持！");
         }
 
@@ -76,13 +76,9 @@ public class OrdersController extends BaseController {
         headers.add("imoocUserId","imooc");
         headers.add("password","imooc");
 
-        HttpEntity<MerchantOrdersVO> entity =
-                new HttpEntity<>(merchantOrdersVO, headers);
+        HttpEntity<MerchantOrdersVO> entity = new HttpEntity<>(merchantOrdersVO, headers);
 
-        ResponseEntity<ResultBean> responseEntity =
-                restTemplate.postForEntity(paymentUrl,
-                                            entity,
-                                            ResultBean.class);
+        ResponseEntity<ResultBean> responseEntity = restTemplate.postForEntity(paymentUrl, entity, ResultBean.class);
         ResultBean paymentResult = responseEntity.getBody();
         if (paymentResult.getStatus() != 200) {
             logger.error("发送错误：{}", paymentResult.getMsg());
