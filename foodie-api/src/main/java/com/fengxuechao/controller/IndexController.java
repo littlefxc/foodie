@@ -82,7 +82,8 @@ public class IndexController {
         List<Category> list = new ArrayList<>();
         String catsStr = redisOperator.get("cats");
         if (StringUtils.isBlank(catsStr)) {
-            redisOperator.set("cats", JsonUtils.objectToJson(list));
+            list = categoryService.queryAllRootLevelCat();
+            redisOperator.set("cats", JsonUtils.objectToJson(list), 30);
         } else {
             list = JsonUtils.jsonToList(catsStr, Category.class);
         }
