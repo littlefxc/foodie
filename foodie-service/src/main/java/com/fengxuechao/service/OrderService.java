@@ -1,8 +1,11 @@
 package com.fengxuechao.service;
 
 import com.fengxuechao.pojo.OrderStatus;
+import com.fengxuechao.pojo.bo.ShopcartBO;
 import com.fengxuechao.pojo.bo.SubmitOrderBO;
 import com.fengxuechao.pojo.vo.OrderVO;
+
+import java.util.List;
 
 public interface OrderService {
 
@@ -11,7 +14,7 @@ public interface OrderService {
      *
      * @param submitOrderBO
      */
-    OrderVO createOrder(SubmitOrderBO submitOrderBO);
+    OrderVO createOrder(List<ShopcartBO> shopcartList, SubmitOrderBO submitOrderBO);
 
     /**
      * 修改订单状态

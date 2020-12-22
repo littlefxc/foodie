@@ -4,6 +4,7 @@ import com.fengxuechao.mapper.OrderItemsMapper;
 import com.fengxuechao.mapper.OrderStatusMapper;
 import com.fengxuechao.mapper.OrdersMapper;
 import com.fengxuechao.pojo.*;
+import com.fengxuechao.pojo.bo.ShopcartBO;
 import com.fengxuechao.pojo.bo.SubmitOrderBO;
 import com.fengxuechao.pojo.vo.MerchantOrdersVO;
 import com.fengxuechao.pojo.vo.OrderVO;
@@ -13,6 +14,7 @@ import com.fengxuechao.service.OrderService;
 import com.fengxuechao.utils.DateUtil;
 import com.fengxuechao.utils.enums.OrderStatusEnum;
 import com.fengxuechao.utils.enums.YesOrNo;
+import lombok.extern.slf4j.Slf4j;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -45,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public OrderVO createOrder(SubmitOrderBO submitOrderBO) {
+    public OrderVO createOrder(List<ShopcartBO> shopcartList, SubmitOrderBO submitOrderBO) {
 
         String userId = submitOrderBO.getUserId();
         String addressId = submitOrderBO.getAddressId();
@@ -67,9 +70,9 @@ public class OrderServiceImpl implements OrderService {
         newOrder.setReceiverName(address.getReceiver());
         newOrder.setReceiverMobile(address.getMobile());
         newOrder.setReceiverAddress(address.getProvince() + " "
-                                    + address.getCity() + " "
-                                    + address.getDistrict() + " "
-                                    + address.getDetail());
+                + address.getCity() + " "
+                + address.getDistrict() + " "
+                + address.getDetail());
 
 //        newOrder.setTotalAmount();
 //        newOrder.setRealPayAmount();
@@ -89,9 +92,10 @@ public class OrderServiceImpl implements OrderService {
         Integer totalAmount = 0;    // 商品原价累计
         Integer realPayAmount = 0;  // 优惠后的实际支付价格累计
         for (String itemSpecId : itemSpecIdArr) {
-
-            // TODO 整合redis后，商品购买的数量重新从redis的购物车中获取
-            int buyCounts = 1;
+            log.debug("从redis中的购物车里获取商品，目的：counts");
+            ShopcartBO cartItem = getBuyCountsFromShopcart(shopcartList, itemSpecId);
+            // 整合redis后，商品购买的数量重新从redis的购物车中获取
+            int buyCounts = cartItem.getBuyCounts();
 
             // 2.1 根据规格id，查询规格的具体信息，主要获取价格
             ItemsSpec itemSpec = itemService.queryItemSpecById(itemSpecId);
@@ -186,11 +190,27 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    void doCloseOrder(String orderId) {
+    public void doCloseOrder(String orderId) {
         OrderStatus close = new OrderStatus();
         close.setOrderId(orderId);
         close.setOrderStatus(OrderStatusEnum.CLOSE.type);
         close.setCloseTime(new Date());
         orderStatusMapper.updateByPrimaryKeySelective(close);
+    }
+
+    /**
+     * 从redis中的购物车里获取商品，目的：counts
+     *
+     * @param shopcartList
+     * @param specId
+     * @return
+     */
+    private ShopcartBO getBuyCountsFromShopcart(List<ShopcartBO> shopcartList, String specId) {
+        for (ShopcartBO cart : shopcartList) {
+            if (cart.getSpecId().equals(specId)) {
+                return cart;
+            }
+        }
+        return null;
     }
 }
