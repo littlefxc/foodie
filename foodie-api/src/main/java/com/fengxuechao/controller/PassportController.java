@@ -245,7 +245,8 @@ public class PassportController {
         CookieUtils.deleteCookie(request, response, "user");
 
         // TODO 用户退出登录，需要清空购物车
-        // TODO 分布式会话中需要清除用户数据
+        // 分布式会话中需要清除用户数据
+        CookieUtils.deleteCookie(request,response,FOODIE_SHOPCART);
 
         return ResultBean.ok();
     }
