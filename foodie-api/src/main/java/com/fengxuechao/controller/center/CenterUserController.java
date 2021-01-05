@@ -3,6 +3,7 @@ package com.fengxuechao.controller.center;
 import com.fengxuechao.controller.BaseController;
 import com.fengxuechao.pojo.Users;
 import com.fengxuechao.pojo.bo.center.CenterUserBO;
+import com.fengxuechao.pojo.vo.UsersVO;
 import com.fengxuechao.resource.FileUpload;
 import com.fengxuechao.service.center.CenterUserService;
 import com.fengxuechao.utils.*;
@@ -125,11 +126,12 @@ public class CenterUserController extends BaseController {
         // 更新用户头像到数据库
         Users userResult = centerUserService.updateUserFace(userId, finalUserFaceUrl);
 
-        userResult = setNullProperty(userResult);
-        CookieUtils.setCookie(request, response, "user",
-                JsonUtils.objectToJson(userResult), true);
+//        userResult = setNullProperty(userResult);
 
-        // TODO 后续要改，增加令牌token，会整合进redis，分布式会话
+        UsersVO usersVO = conventUsersVO(userResult);
+
+        CookieUtils.setCookie(request, response, "user",
+                JsonUtils.objectToJson(usersVO), true);
 
         return ResultBean.ok();
     }
@@ -155,11 +157,12 @@ public class CenterUserController extends BaseController {
 
         Users userResult = centerUserService.updateUserInfo(userId, centerUserBO);
 
-        userResult = setNullProperty(userResult);
-        CookieUtils.setCookie(request, response, "user",
-                JsonUtils.objectToJson(userResult), true);
+//        userResult = setNullProperty(userResult);
 
-        // TODO 后续要改，增加令牌token，会整合进redis，分布式会话
+        UsersVO usersVO = conventUsersVO(userResult);
+
+        CookieUtils.setCookie(request, response, "user",
+                JsonUtils.objectToJson(usersVO), true);
 
         return ResultBean.ok();
     }

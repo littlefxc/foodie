@@ -3,6 +3,7 @@ package com.fengxuechao.controller;
 import com.fengxuechao.pojo.Users;
 import com.fengxuechao.pojo.bo.ShopcartBO;
 import com.fengxuechao.pojo.bo.UserBO;
+import com.fengxuechao.pojo.vo.UsersVO;
 import com.fengxuechao.service.UserService;
 import com.fengxuechao.utils.CookieUtils;
 import com.fengxuechao.utils.RedisOperator;
@@ -27,7 +28,7 @@ import static com.fengxuechao.controller.BaseController.FOODIE_SHOPCART;
 @Api(value = "注册登录", tags = {"用于注册登录的相关接口"})
 @RestController
 @RequestMapping("passport")
-public class PassportController {
+public class PassportController extends BaseController {
 
     private final UserService userService;
 
@@ -98,10 +99,12 @@ public class PassportController {
 
         userResult = setNullProperty(userResult);
 
-        CookieUtils.setCookie(request, response, "user",
-                JsonUtils.objectToJson(userResult), true);
+        // 生成用户token，存入redis会话
+        UsersVO usersVO = conventUsersVO(userResult);
 
-        // TODO 生成用户token，存入redis会话
+        CookieUtils.setCookie(request, response, "user",
+                JsonUtils.objectToJson(usersVO), true);
+
         // 同步购物车数据
         synchShopcartData(userResult.getId(), request, response);
 
@@ -134,12 +137,10 @@ public class PassportController {
         }
 
         userResult = setNullProperty(userResult);
-
+        // 生成用户token，存入redis会话
+        UsersVO usersVO = conventUsersVO(userResult);
         CookieUtils.setCookie(request, response, "user",
-                JsonUtils.objectToJson(userResult), true);
-
-
-        // TODO 生成用户token，存入redis会话
+                JsonUtils.objectToJson(usersVO), true);
         // 同步购物车数据
         synchShopcartData(userResult.getId(), request, response);
 
@@ -244,7 +245,9 @@ public class PassportController {
         // 清除用户的相关信息的cookie
         CookieUtils.deleteCookie(request, response, "user");
 
-        // TODO 用户退出登录，需要清空购物车
+        // 用户退出登录，清除redis中user的会话信息
+        redisOperator.del(REDIS_USER_TOKEN + ":" + userId);
+
         // 分布式会话中需要清除用户数据
         CookieUtils.deleteCookie(request,response,FOODIE_SHOPCART);
 
