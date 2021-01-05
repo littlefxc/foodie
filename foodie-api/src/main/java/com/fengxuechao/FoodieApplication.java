@@ -16,6 +16,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @ComponentScan(basePackages = {"com.fengxuechao", "org.n3r.idworker"})
 //@EnableTransactionManagement
 @EnableScheduling       // 开启定时任务
+//@EnableRedisHttpSession // 开启使用redis作为spring session
 @SpringBootApplication
 public class FoodieApplication {
     public static void main(String[] args) {
