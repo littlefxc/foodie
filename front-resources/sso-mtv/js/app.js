@@ -1,20 +1,6 @@
 window.app = {
-    /* 开发环境 */
-    // serverUrl: "http://localhost:8088",                                   // 接口服务接口地址
-    // paymentServerUrl: "http://192.168.1.3:8089",                            // 支付中心服务地址
-    // shopServerUrl: "http://localhost:90/foodie-shop/",                  // 门户网站地址
-    // centerServerUrl: "http://localhost:90/foodie-center/",              // 用户中心地址
-    // cookieDomain: "",                                                       // cookie 域
-
-    /* 生产环境 */
-    // serverUrl: "http://api.z.mukewang.com:8088/foodie-dev-api",                      // 接口服务接口地址
-    serverUrl: "http://api.z.mukewang.com:8088",                      // 接口服务接口地址
-    paymentServerUrl: "http://payment.t.mukewang.com/foodie-payment",       // 支付中心服务地址
-    shopServerUrl: "http://shop.z.mukewang.com:9090/foodie-shop/",                            // 门户网站地址
-    centerServerUrl: "http://center.z.mukewang.com:9090/foodie-center/",                        // 用户中心地址
-    cookieDomain: ".z.mukewang.com;",                                       // cookie 域
-
-    ctx: "/foodie-shop",
+    SSOServerUrl: "http://www.sso.com:8089",
+    cookieDomain: ".mtv.com",  
 
     getCookie: function (cname) {
         var name = cname + "=";
@@ -42,9 +28,10 @@ window.app = {
         if (this.cookieDomain != null && this.cookieDomain != undefined && this.cookieDomain != '') {
             cookieContent += "domain=" + this.cookieDomain;
         }
-        document.cookie = cookieContent;
+        document.cookie = cookieContent + cookieContent;
         // document.cookie = name + "="+ encodeURIComponent (value) + ";path=/;domain=" + cookieDomain;//expires=" + exp.toGMTString();
     },
+
 
     deleteCookie: function(name) {
         var cookieContent = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -83,11 +70,6 @@ window.app = {
             var foodieShopcartStr = decodeURIComponent(foodieShopcartCookie);
             foodieShopcart = JSON.parse(foodieShopcartStr);
 
-            // 如果不是对象，则重新复制为空数组
-            if (typeof(foodieShopcart) != "object") {
-                foodieShopcart = [];
-            }
-
             var isHavingItem = false;
             // 如果添加的商品已经存在与购物车中，则购物车中已经存在的商品数量累加新增的
             for(var i = 0 ; i < foodieShopcart.length ; i ++) {
@@ -122,11 +104,6 @@ window.app = {
         if (foodieShopcartCookie != null && foodieShopcartCookie != "" && foodieShopcartCookie != undefined) {
             var foodieShopcartStr = decodeURIComponent(foodieShopcartCookie);
             foodieShopcart = JSON.parse(foodieShopcartStr);
-
-            // 如果不是对象，则重新复制为空数组
-            if (typeof(foodieShopcart) != "object") {
-                foodieShopcart = [];
-            }
         }
         return foodieShopcart.length;
     },
@@ -142,11 +119,6 @@ window.app = {
         if (foodieShopcartCookie != null && foodieShopcartCookie != "" && foodieShopcartCookie != undefined) {
             var foodieShopcartStr = decodeURIComponent(foodieShopcartCookie);
             foodieShopcart = JSON.parse(foodieShopcartStr);
-
-            // 如果不是对象，则重新复制为空数组
-            if (typeof(foodieShopcart) != "object") {
-                foodieShopcart = [];
-            }
         }
         return foodieShopcart;
     },
@@ -154,6 +126,14 @@ window.app = {
     checkMobile(mobile) {
         var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
         if (!myreg.test(mobile)) {
+            return false;
+        }
+        return true;
+    },
+
+    checkEmail(email) {
+        var myreg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+        if (!myreg.test(email)) {
             return false;
         }
         return true;
