@@ -182,7 +182,7 @@ public class SSOController {
             redisOperator.del(REDIS_TMP_TICKET + ":" + tmpTicket);
         }
 
-        // 1. 验证并且获取用户的userTicket
+        // 1. 验证并且获取用户的userTicket(跨域问题)
         String userTicket = getCookie(request, COOKIE_USER_TICKET);
         String userId = redisOperator.get(REDIS_USER_TICKET + ":" + userTicket);
         if (StringUtils.isBlank(userId)) {

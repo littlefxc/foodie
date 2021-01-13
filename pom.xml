@@ -17,6 +17,7 @@
         <module>foodie-service</module>
         <module>foodie-api</module>
         <module>foodie-sso</module>
+        <module>foodie-search</module>
         <module>generator</module>
     </modules>
 
@@ -25,12 +26,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <!--<swagger2.version>3.0.0</swagger2.version>
+        <swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>-->
+        <swagger2.version>2.4.0</swagger2.version>
+        <swagger-bootstrap-ui.version>1.6</swagger-bootstrap-ui.version>
     </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.5.RELEASE</version>
+        <!--<version>2.3.7.RELEASE</version>-->
         <relativePath/>
     </parent>
 
@@ -40,6 +46,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>2.1.5.RELEASE</version>
+                <!--<version>2.3.7.RELEASE</version>-->
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -67,6 +74,10 @@
                     <groupId>org.springframework.boot</groupId>
                 </exclusion>
             </exclusions>-->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -152,17 +163,20 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>2.4.0</version>
+            <!--<version>2.4.0</version>-->
+            <version>${swagger2.version}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.4.0</version>
+            <!--<version>2.4.0</version>-->
+            <version>${swagger2.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>swagger-bootstrap-ui</artifactId>
-            <version>1.6</version>
+            <!--<version>1.6</version>-->
+            <version>${swagger-bootstrap-ui.version}</version>
         </dependency>
         <!-- 安全 -->
         <dependency>
@@ -200,21 +214,29 @@
         </dependency>
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>aliyun</id>
+            <name>aliyun</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+        </repository>
+    </repositories>
+
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <!--<version>3.8.0</version>-->
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
