@@ -8,7 +8,9 @@ spring:
     url: jdbc:mysql://localhost:3306/foodie-shop-dev?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
     username: root
     password: root
-  data:
-    elasticsearch:
-      cluster-nodes: 192.168.1.187:9300
-      cluster-name: es6
+  elasticsearch:
+    rest:
+      uris: http://localhost:9200
+  flyway:
+    enabled: false
+

@@ -1,40 +1,20 @@
 package com.fengxuechao.service.impl;
 
-import com.fengxuechao.es.pojo.Items;
 import com.fengxuechao.service.ItemsESService;
 import com.fengxuechao.utils.PagedGridResult;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
-import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
-import org.elasticsearch.search.sort.FieldSortBuilder;
-import org.elasticsearch.search.sort.SortBuilder;
-import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import org.springframework.data.elasticsearch.core.SearchResultMapper;
-import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
-import org.springframework.data.elasticsearch.core.aggregation.impl.AggregatedPageImpl;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.data.elasticsearch.core.query.SearchQuery;
+import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class ItemsESServiceImpl implements ItemsESService {
 
     @Autowired
-    private ElasticsearchTemplate esTemplate;
+    private ElasticsearchRestTemplate esTemplate;
 
     @Override
     public PagedGridResult searhItems(String keywords, String sort, Integer page, Integer pageSize) {
-
+/*
         String preTag = "<font color='red'>";
         String postTag = "</font>";
 
@@ -107,6 +87,7 @@ public class ItemsESServiceImpl implements ItemsESService {
         gridResult.setTotal(pagedItems.getTotalPages());
         gridResult.setRecords(pagedItems.getTotalElements());
 
-        return gridResult;
+        return gridResult;*/
+        return null;
     }
 }

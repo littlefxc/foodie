@@ -5,7 +5,10 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-@Document(indexName = "stu", type = "_doc", shards = 3, replicas = 0)
+/**
+ * 经测试，更改 shards，replicas的值无法更改
+ */
+@Document(indexName = "stu", shards = 3, replicas = 2, createIndex = false)
 public class Stu {
 
     @Id

@@ -17,6 +17,12 @@
             <artifactId>foodie-common</artifactId>
             <version>${foodie.version}</version>
         </dependency>
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0</version>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
 </project>
