@@ -6,7 +6,6 @@ import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
-import org.elasticsearch.search.sort.SortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -126,9 +125,9 @@ public class ESTest {
 
         Pageable pageable = PageRequest.of(0, 10);
 
-        SortBuilder sortBuilder = new FieldSortBuilder("money")
+        FieldSortBuilder sortBuilder = new FieldSortBuilder("money")
                 .order(SortOrder.DESC);
-        SortBuilder sortBuilderAge = new FieldSortBuilder("age")
+        FieldSortBuilder sortBuilderAge = new FieldSortBuilder("age")
                 .order(SortOrder.ASC);
 
         NativeSearchQuery query = new NativeSearchQueryBuilder()

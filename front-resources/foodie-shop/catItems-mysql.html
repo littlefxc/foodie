@@ -18,17 +18,7 @@
 	<script type="text/javascript" src="js/script.js"></script>
 
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.js"></script>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-<style>
-
-	em {
-		color: red;
-		font-weight: bold;
-	}
-
-</style>
-
+	<script src="js/axios.min.js"></script>
 </head>
 
 <body>
@@ -98,8 +88,7 @@
 								<li v-for="(item, index) in itemsList" :key="index" @click="showItemDetail(item.itemId)">
 									<div class="i-pic limit">
 										<img :src="item.imgUrl" />
-										<!-- <p class="title fl">{{item.itemName}}</p> -->
-										<p class="title fl" v-html="item.itemName"></p>
+										<p class="title fl">{{item.itemName}}</p>
 										<p class="price fl">
 											<b>¥</b>
 											<strong>{{item.price / 100}}</strong>
@@ -366,11 +355,7 @@
 					// debugger;
 					var serverUrl = app.serverUrl;
 					axios.defaults.withCredentials = true;
-
-					// http://localhost:8033/items/es/search?keywords=%E6%AC%A2%E8%BF%8E%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE-&sort=k&page=1&pageSize=10
-					// var searchHost = serverUrl + '/items/search?keywords=' + keywords + "&sort=" + sort + "&page=" + page + "&pageSize=" + pageSize;
-					var searchHost = 'http://localhost:8033/items/es/search?keywords=' + keywords + "&sort=" + sort + "&page=" + page + "&pageSize=" + pageSize;
-					axios.get(searchHost, {})
+					axios.get(serverUrl + '/items/search?keywords=' + keywords + "&sort=" + sort + "&page=" + page + "&pageSize=" + pageSize, {})
 						.then(res => {
 							if (res.data.status == 200) {
 								var grid = res.data.data;

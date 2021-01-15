@@ -7,14 +7,18 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author fengxuechao
+ */
 @RestController
 @RequestMapping("items")
 public class ItemsController {
 
     @Autowired
-    private ItemsESService itemsESService;
+    private ItemsESService itemsEsService;
 
     @GetMapping("/hello")
     public Object hello() {
@@ -25,24 +29,16 @@ public class ItemsController {
     public ResultBean<?> search(
                             String keywords,
                             String sort,
-                            Integer page,
-                            Integer pageSize) {
+                            @RequestParam(defaultValue = "1") Integer page,
+                            @RequestParam(defaultValue = "20")Integer pageSize) {
 
         if (StringUtils.isBlank(keywords)) {
-            return ResultBean.errorMsg(null);
-        }
-
-        if (page == null) {
-            page = 1;
-        }
-
-        if (pageSize == null) {
-            pageSize = 20;
+            return ResultBean.errorMsg("keywords is required");
         }
 
         page --;
 
-        PagedGridResult grid = itemsESService.searhItems(keywords,
+        PagedGridResult grid = itemsEsService.searhItems(keywords,
                 sort,
                 page,
                 pageSize);

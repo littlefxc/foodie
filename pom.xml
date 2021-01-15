@@ -28,14 +28,11 @@
         <java.version>1.8</java.version>
         <swagger2.version>3.0.0</swagger2.version>
         <swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>
-        <!--<swagger2.version>2.4.0</swagger2.version>
-        <swagger-bootstrap-ui.version>1.6</swagger-bootstrap-ui.version>-->
     </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <!--<version>2.1.5.RELEASE</version>-->
         <version>2.3.7.RELEASE</version>
         <relativePath/>
     </parent>
@@ -45,7 +42,6 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <!--<version>2.1.5.RELEASE</version>-->
                 <version>2.3.7.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -133,19 +129,16 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <!--<version>2.4.0</version>-->
             <version>${swagger2.version}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <!--<version>2.4.0</version>-->
             <version>${swagger2.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>swagger-bootstrap-ui</artifactId>
-            <!--<version>1.6</version>-->
             <version>${swagger-bootstrap-ui.version}</version>
         </dependency>
         <!-- 安全 -->
