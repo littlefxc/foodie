@@ -31,7 +31,7 @@ public class ApplicationTests {
 			attributes.put("age", "18");
 			Message message = new Message(
 					uniqueId, 
-					"exchange-2", 
+					"exchange-1",
 					"springboot.abc", 
 					attributes, 
 					0);
