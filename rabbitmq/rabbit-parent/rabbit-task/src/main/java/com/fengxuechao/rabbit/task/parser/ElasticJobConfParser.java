@@ -29,6 +29,12 @@ import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperRegistryCenter;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 1. IOC 容器准备好之后，找到 @ElasticJobConfig 注解的类
+ * 2. 根据注解内容创建分布式任务bean
+ * 3. 分布式任务bean 交由 IOC 管理
+ * 4. 启动分布式任务
+ */
 @Slf4j
 public class ElasticJobConfParser implements ApplicationListener<ApplicationReadyEvent> {
 
