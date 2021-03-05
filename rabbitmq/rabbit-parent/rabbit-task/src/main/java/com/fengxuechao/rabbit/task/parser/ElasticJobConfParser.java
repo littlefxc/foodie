@@ -67,65 +67,45 @@ public class ElasticJobConfParser implements ApplicationListener<ApplicationRead
 				
 				String jobClass = clazz.getName();
 				String jobName = this.jobZookeeperProperties.getNamespace() + "." + conf.name();
-				String cron = conf.cron();
-				String shardingItemParameters = conf.shardingItemParameters();
-				String description = conf.description();
-				String jobParameter = conf.jobParameter();
-				String jobExceptionHandler = conf.jobExceptionHandler();
-				String executorServiceHandler = conf.executorServiceHandler();
 
-				String jobShardingStrategyClass = conf.jobShardingStrategyClass();
 				String eventTraceRdbDataSource = conf.eventTraceRdbDataSource();
-				String scriptCommandLine = conf.scriptCommandLine();
-
-				boolean failover = conf.failover();
-				boolean misfire = conf.misfire();
-				boolean overwrite = conf.overwrite();
-				boolean disabled = conf.disabled();
-				boolean monitorExecution = conf.monitorExecution();
-				boolean streamingProcess = conf.streamingProcess();
-
-				int shardingTotalCount = conf.shardingTotalCount();
-				int monitorPort = conf.monitorPort();
-				int maxTimeDiffSeconds = conf.maxTimeDiffSeconds();
-				int reconcileIntervalMinutes = conf.reconcileIntervalMinutes();				
 				
 				//	先把当当网的esjob的相关configuration
 				JobCoreConfiguration coreConfig = JobCoreConfiguration
-						.newBuilder(jobName, cron, shardingTotalCount)
-						.shardingItemParameters(shardingItemParameters)
-						.description(description)
-						.failover(failover)
-						.jobParameter(jobParameter)
-						.misfire(misfire)
-						.jobProperties(JobProperties.JobPropertiesEnum.JOB_EXCEPTION_HANDLER.getKey(), jobExceptionHandler)
-						.jobProperties(JobProperties.JobPropertiesEnum.EXECUTOR_SERVICE_HANDLER.getKey(), executorServiceHandler)
+						.newBuilder(jobName, conf.cron(), conf.shardingTotalCount())
+						.shardingItemParameters(conf.shardingItemParameters())
+						.description(conf.description())
+						.failover(conf.failover())
+						.jobParameter(conf.jobParameter())
+						.misfire(conf.misfire())
+						.jobProperties(JobProperties.JobPropertiesEnum.JOB_EXCEPTION_HANDLER.getKey(), conf.jobExceptionHandler())
+						.jobProperties(JobProperties.JobPropertiesEnum.EXECUTOR_SERVICE_HANDLER.getKey(), conf.executorServiceHandler())
 						.build();
 				
-				//	我到底要创建什么样的任务.
+				//	到底要创建什么样的任务.
 				JobTypeConfiguration typeConfig = null;
 				if(ElasticJobTypeEnum.SIMPLE.getType().equals(jobTypeName)) {
 					typeConfig = new SimpleJobConfiguration(coreConfig, jobClass);
 				}
 				
 				if(ElasticJobTypeEnum.DATAFLOW.getType().equals(jobTypeName)) {
-					typeConfig = new DataflowJobConfiguration(coreConfig, jobClass, streamingProcess);
+					typeConfig = new DataflowJobConfiguration(coreConfig, jobClass, conf.streamingProcess());
 				}
 				
 				if(ElasticJobTypeEnum.SCRIPT.getType().equals(jobTypeName)) {
-					typeConfig = new ScriptJobConfiguration(coreConfig, scriptCommandLine);
+					typeConfig = new ScriptJobConfiguration(coreConfig, conf.scriptCommandLine());
 				}
 				
 				// LiteJobConfiguration
 				LiteJobConfiguration jobConfig = LiteJobConfiguration
 						.newBuilder(typeConfig)
-						.overwrite(overwrite)
-						.disabled(disabled)
-						.monitorPort(monitorPort)
-						.monitorExecution(monitorExecution)
-						.maxTimeDiffSeconds(maxTimeDiffSeconds)
-						.jobShardingStrategyClass(jobShardingStrategyClass)
-						.reconcileIntervalMinutes(reconcileIntervalMinutes)
+						.overwrite(conf.overwrite())
+						.disabled(conf.disabled())
+						.monitorPort(conf.monitorPort())
+						.monitorExecution(conf.monitorExecution())
+						.maxTimeDiffSeconds(conf.maxTimeDiffSeconds())
+						.jobShardingStrategyClass(conf.jobShardingStrategyClass())
+						.reconcileIntervalMinutes(conf.reconcileIntervalMinutes())
 						.build();
 				
 				// 	创建一个Spring的beanDefinition
@@ -144,7 +124,8 @@ public class ElasticJobConfParser implements ApplicationListener<ApplicationRead
 
 				//	4.如果有eventTraceRdbDataSource 则也进行添加
 				if (StringUtils.hasText(eventTraceRdbDataSource)) {
-					BeanDefinitionBuilder rdbFactory = BeanDefinitionBuilder.rootBeanDefinition(JobEventRdbConfiguration.class);
+					BeanDefinitionBuilder rdbFactory = BeanDefinitionBuilder
+							.rootBeanDefinition(JobEventRdbConfiguration.class);
 					rdbFactory.addConstructorArgReference(eventTraceRdbDataSource);
 					factory.addConstructorArgValue(rdbFactory.getBeanDefinition());
 				}
@@ -154,7 +135,8 @@ public class ElasticJobConfParser implements ApplicationListener<ApplicationRead
 				factory.addConstructorArgValue(elasticJobListeners);
 				
 				// 	接下来就是把factory 也就是 SpringJobScheduler注入到Spring容器中
-				DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) applicationContext.getAutowireCapableBeanFactory();
+				DefaultListableBeanFactory defaultListableBeanFactory =
+						(DefaultListableBeanFactory) applicationContext.getAutowireCapableBeanFactory();
 
 				String registerBeanName = conf.name() + "SpringJobScheduler";
 				defaultListableBeanFactory.registerBeanDefinition(registerBeanName, factory.getBeanDefinition());
