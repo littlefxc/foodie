@@ -1,0 +1,74 @@
+Classfile /Users/fengxuechao/WorkSpace/IdeaProjects/foodie/jvm/src/main/java/com/fengxuechao/jvm/Demo.class
+  Last modified 2021-2-24; size 461 bytes
+  MD5 checksum 4232b9a7f5bc219b5c632adabd643a3d
+  Compiled from "JVMTest1.java"
+class com.fengxuechao.jvm.Demo
+  minor version: 0
+  major version: 52
+  flags: ACC_SUPER
+Constant pool:
+   #1 = Methodref          #6.#17         // java/lang/Object."<init>":()V
+   #2 = Fieldref           #5.#18         // com/fengxuechao/jvm/Demo.name:Ljava/lang/String;
+   #3 = Fieldref           #19.#20        // java/lang/System.out:Ljava/io/PrintStream;
+   #4 = Methodref          #21.#22        // java/io/PrintStream.println:(Ljava/lang/String;)V
+   #5 = Class              #23            // com/fengxuechao/jvm/Demo
+   #6 = Class              #24            // java/lang/Object
+   #7 = Utf8               name
+   #8 = Utf8               Ljava/lang/String;
+   #9 = Utf8               <init>
+  #10 = Utf8               (Ljava/lang/String;)V
+  #11 = Utf8               Code
+  #12 = Utf8               LineNumberTable
+  #13 = Utf8               printName
+  #14 = Utf8               ()V
+  #15 = Utf8               SourceFile
+  #16 = Utf8               JVMTest1.java
+  #17 = NameAndType        #9:#14         // "<init>":()V
+  #18 = NameAndType        #7:#8          // name:Ljava/lang/String;
+  #19 = Class              #25            // java/lang/System
+  #20 = NameAndType        #26:#27        // out:Ljava/io/PrintStream;
+  #21 = Class              #28            // java/io/PrintStream
+  #22 = NameAndType        #29:#10        // println:(Ljava/lang/String;)V
+  #23 = Utf8               com/fengxuechao/jvm/Demo
+  #24 = Utf8               java/lang/Object
+  #25 = Utf8               java/lang/System
+  #26 = Utf8               out
+  #27 = Utf8               Ljava/io/PrintStream;
+  #28 = Utf8               java/io/PrintStream
+  #29 = Utf8               println
+{
+  private java.lang.String name;
+    descriptor: Ljava/lang/String;
+    flags: ACC_PRIVATE
+
+  public com.fengxuechao.jvm.Demo(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: aload_1
+         6: putfield      #2                  // Field name:Ljava/lang/String;
+         9: return
+      LineNumberTable:
+        line 16: 0
+        line 17: 4
+        line 18: 9
+
+  public void printName();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: getstatic     #3                  // Field java/lang/System.out:Ljava/io/PrintStream;
+         3: aload_0
+         4: getfield      #2                  // Field name:Ljava/lang/String;
+         7: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        10: return
+      LineNumberTable:
+        line 21: 0
+        line 22: 10
+}
+SourceFile: "JVMTest1.java"

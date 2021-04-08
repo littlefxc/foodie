@@ -20,6 +20,7 @@
         <module>foodie-search</module>
         <module>foodie-fs</module>
         <module>generator</module>
+        <module>jvm</module>
     </modules>
 
     <properties>

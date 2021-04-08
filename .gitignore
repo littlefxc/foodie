@@ -32,3 +32,7 @@ hs_err_pid*
 out/
 target/
 *.iml
+*/*/.project
+*/*/.classpath
+*/*/.factorypath
+*/*/.settings
