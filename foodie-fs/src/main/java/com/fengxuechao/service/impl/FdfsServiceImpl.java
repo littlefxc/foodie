@@ -2,9 +2,9 @@ package com.fengxuechao.service.impl;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
+import com.fengxuechao.resourse.FileResource;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
-import com.imooc.resourse.FileResource;
 import com.fengxuechao.service.FdfsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
