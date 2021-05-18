@@ -13,6 +13,9 @@ import com.fengxuechao.utils.enums.CommentLevel;
 import com.fengxuechao.utils.enums.YesOrNo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,7 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Service
 public class ItemServiceImpl implements ItemService {
 
@@ -41,6 +46,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ItemsMapperCustom itemsMapperCustom;
+
+    @Autowired
+    private RedissonClient redissonClient;
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
@@ -218,9 +226,20 @@ public class ItemServiceImpl implements ItemService {
         // lockUtil.unLock(); -- 解锁
 
 
-        int result = itemsMapperCustom.decreaseItemSpecStock(specId, buyCounts);
-        if (result != 1) {
-            throw new RuntimeException("订单创建失败，原因：库存不足!");
+        RLock lock = redissonClient.getLock("item_lock" + specId);
+        lock.lock(5, TimeUnit.SECONDS);
+        try {
+            log.info("获得了锁！");
+            int result = itemsMapperCustom.decreaseItemSpecStock(specId, buyCounts);
+            if (result != 1) {
+                log.info("库存不足！");
+                throw new RuntimeException("订单创建失败，原因：库存不足!");
+            }
+        } catch (RuntimeException e) {
+            throw e;
+        } finally {
+            log.info("释放锁");
+            lock.unlock();
         }
     }
 }

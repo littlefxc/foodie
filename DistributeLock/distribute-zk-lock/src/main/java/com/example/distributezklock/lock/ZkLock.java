@@ -66,10 +66,6 @@ public class ZkLock implements AutoCloseable, Watcher {
         return false;
     }
 
-
-
-
-
     @Override
     public void close() throws Exception {
         zooKeeper.delete(znode,-1);

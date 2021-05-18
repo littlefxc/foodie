@@ -8,14 +8,17 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * $FastJsonConvertUtil
  * @author fengxuechao
  * @since 2019年1月15日 下午4:53:28
  */
-@Slf4j
 public class FastJsonConvertUtil {
+
+    private static final Logger log = LoggerFactory.getLogger(FastJsonConvertUtil.class);
 
     private static final SerializerFeature[] featuresWithNullValue = { SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullBooleanAsFalse,
             SerializerFeature.WriteNullListAsEmpty, SerializerFeature.WriteNullNumberAsZero, SerializerFeature.WriteNullStringAsEmpty };

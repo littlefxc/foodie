@@ -24,7 +24,7 @@ public class RedissonLockApplicationTests {
     @Test
     public void testRedissonLock() {
         Config config = new Config();
-        config.useSingleServer().setAddress("redis://192.168.73.130:6379");
+        config.useSingleServer().setAddress("redis://localhost:6379");
         RedissonClient redisson = Redisson.create(config);
 
         RLock rLock = redisson.getLock("order");

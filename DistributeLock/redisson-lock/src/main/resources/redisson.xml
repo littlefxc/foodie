@@ -12,6 +12,6 @@
 ">
 
     <redisson:client>
-        <redisson:single-server address="redis://192.168.73.130:6379"/>
+        <redisson:single-server address="redis://localhost:6379"/>
     </redisson:client>
 </beans>
