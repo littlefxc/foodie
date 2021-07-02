@@ -8,6 +8,8 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
 
 //@Controller
 @ApiIgnore
@@ -25,6 +27,26 @@ public class HelloController {
         logger.error("error: hello~");
 
         return "Hello World~";
+    }
+
+    @GetMapping("/async/future")
+    public CompletableFuture<String> getCompletableFutureString() throws InterruptedException {
+        Thread.sleep(2000L);
+        logger.info("hello, completetablefuture!");
+        return CompletableFuture.supplyAsync(() -> {
+            logger.info("hello, completetablefuture!");
+            return "hello, completetablefuture!";
+        });
+    }
+
+    @GetMapping("/async/callable")
+    public Callable<String> getCallableString() throws InterruptedException {
+        Thread.sleep(2000L);
+        logger.info("hello, Callable !");
+        return () -> {
+            logger.info("hello, Callable !");
+            return "Hello, Callable !";
+        };
     }
 
     @GetMapping("/setSession")
