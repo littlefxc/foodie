@@ -19,7 +19,8 @@
         <module>foodie-sso</module>
         <module>foodie-search</module>
         <module>foodie-fs</module>
-        <module>generator</module>
+        <!--<module>generator</module>-->
+        <module>trace/user-app-service</module>
     </modules>
 
     <properties>

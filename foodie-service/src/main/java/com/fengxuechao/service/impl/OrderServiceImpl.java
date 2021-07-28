@@ -87,6 +87,9 @@ public class OrderServiceImpl implements OrderService {
         newOrder.setCreatedTime(new Date());
         newOrder.setUpdatedTime(new Date());
 
+        // mycat：orderItem 是 order 的子表
+        ordersMapper.insert(newOrder);
+
 
         // 2. 循环根据itemSpecIds保存订单商品信息表
         String itemSpecIdArr[] = itemSpecIds.split(",");
@@ -128,9 +131,11 @@ public class OrderServiceImpl implements OrderService {
             itemService.decreaseItemSpecStock(itemSpecId, buyCounts);
         }
 
+        // userId 是mycat分片列，不能更新
+        newOrder.setUserId(null);
         newOrder.setTotalAmount(totalAmount);
         newOrder.setRealPayAmount(realPayAmount);
-        ordersMapper.insert(newOrder);
+        ordersMapper.updateByPrimaryKeySelective(newOrder);
 
         // 3. 保存订单状态表
         OrderStatus waitPayOrderStatus = new OrderStatus();

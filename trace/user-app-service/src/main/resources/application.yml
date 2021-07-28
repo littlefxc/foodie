@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: user-app-service
+
+  # datasource 数据源配置内容
+  datasource:
+#    url: jdbc:mysql://127.0.0.1:3306/zipkin?useSSL=false&useUnicode=true&characterEncoding=UTF-8&statementInterceptors=brave.mysql.TracingStatementInterceptor&zipkinServiceName=user-app-service
+    url: jdbc:mysql://127.0.0.1:3306/zipkin?useSSL=false&useUnicode=true&characterEncoding=UTF-8&queryInterceptors=brave.mysql8.TracingQueryInterceptor&exceptionInterceptors=brave.mysql8.TracingExceptionInterceptor&zipkinServiceName=user-app-service
+    type: com.zaxxer.hikari.HikariDataSource            # 数据源类型：HikariCP
+    driver-class-name: com.mysql.cj.jdbc.Driver         # mysql驱动
+    username: root
+    password: 12345678
+    hikari:
+      connection-timeout: 30000       # 等待连接池分配连接的最大时长（毫秒），超过这个时长还没可用的连接则发生SQLException， 默认:30秒
+      minimum-idle: 5                 # 最小连接数
+      maximum-pool-size: 20           # 最大连接数
+      auto-commit: true               # 自动提交
+      idle-timeout: 600000            # 连接超时的最大时长（毫秒），超时则被释放（retired），默认:10分钟
+      pool-name: DateSourceHikariCP   # 连接池名字
+      max-lifetime: 1800000           # 连接的生命时长（毫秒），超时而且没被使用则被释放（retired），默认:30分钟 1800000ms
+      connection-test-query: SELECT 1
+  # 对应 RedisProperties 类
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: # Redis 服务器密码，默认为空。生产中，一定要设置 Redis 密码！
+    database: 0 # Redis 数据库号，默认为 0 。
+    timeout: 0 # Redis 连接超时时间，单位：毫秒。
+    # 对应 RedisProperties.Jedis 内部类
+    jedis:
+      pool:
+        max-active: 8 # 连接池最大连接数，默认为 8 。使用负数表示没有限制。
+        max-idle: 8 # 默认连接数最小空闲的连接数，默认为 8 。使用负数表示没有限制。
+        min-idle: 0 # 默认连接池最小空闲的连接数，默认为 0 。允许设置 0 和 正数。
+        max-wait: -1 # 连接池最大阻塞等待时间，单位：毫秒。默认为 -1 ，表示不限制。
+# mongodb
+#  data:
+#    mongodb:
+#      host: 127.0.0.1
+#      port: 27017
+#      database: zipkin
+# elasticsearch
+  elasticsearch:
+    rest:
+      uris: http://localhost:9200
