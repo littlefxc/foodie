@@ -1,10 +1,18 @@
 package com.fengxuechao;
 
+import com.fengxuechao.jvm.objectpool.datasource.MyDataSource;
+import com.fengxuechao.jvm.objectpool.datasource.DataSourceEnpoint;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import tk.mybatis.spring.annotation.MapperScan;
+
+import javax.sql.DataSource;
 
 /**
  * @author fengxuechao
@@ -20,6 +28,24 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 public class FoodieApplication {
     public static void main(String[] args) {
+        System.err.println(System.getProperty("java.library.path"));
         SpringApplication.run(FoodieApplication.class, args);
+    }
+
+    @Bean
+    ServletWebServerFactory servletWebServerFactory() {
+        return new TomcatServletWebServerFactory();
+    }
+
+    @Bean
+    @Primary
+    public DataSource dataSource(){
+        return new MyDataSource();
+    }
+
+    @Bean
+    public DataSourceEnpoint dataSourceEnpoint() {
+        DataSource dataSource = this.dataSource();
+        return new DataSourceEnpoint((MyDataSource) dataSource);
     }
 }
