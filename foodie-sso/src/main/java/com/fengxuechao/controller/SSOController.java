@@ -3,7 +3,7 @@ package com.fengxuechao.controller;
 import com.fengxuechao.pojo.Users;
 import com.fengxuechao.pojo.vo.UsersVO;
 import com.fengxuechao.service.UserService;
-import com.fengxuechao.utils.ResultBean;
+import com.fengxuechao.pojo.ResultBean;
 import com.fengxuechao.utils.JsonUtils;
 import com.fengxuechao.utils.MD5Utils;
 import com.fengxuechao.utils.RedisOperator;

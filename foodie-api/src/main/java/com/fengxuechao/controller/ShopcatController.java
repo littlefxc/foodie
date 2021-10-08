@@ -1,9 +1,9 @@
 package com.fengxuechao.controller;
 
-import com.fengxuechao.pojo.bo.ShopcartBO;
+import com.fengxuechao.pojo.ShopcartBO;
 import com.fengxuechao.utils.JsonUtils;
 import com.fengxuechao.utils.RedisOperator;
-import com.fengxuechao.utils.ResultBean;
+import com.fengxuechao.pojo.ResultBean;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;

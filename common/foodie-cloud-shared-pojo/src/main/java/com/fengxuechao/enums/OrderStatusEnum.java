@@ -1,4 +1,4 @@
-package com.fengxuechao.utils.enums;
+package com.fengxuechao.enums;
 
 /**
  * @Description: 订单状态 枚举

@@ -1,6 +1,6 @@
 package com.fengxuechao.pojo.vo;
 
-import com.fengxuechao.pojo.bo.ShopcartBO;
+import com.fengxuechao.pojo.ShopcartBO;
 import lombok.Data;
 
 import java.util.List;

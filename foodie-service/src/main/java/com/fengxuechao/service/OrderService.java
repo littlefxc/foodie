@@ -1,7 +1,7 @@
 package com.fengxuechao.service;
 
 import com.fengxuechao.pojo.OrderStatus;
-import com.fengxuechao.pojo.bo.ShopcartBO;
+import com.fengxuechao.pojo.ShopcartBO;
 import com.fengxuechao.pojo.bo.SubmitOrderBO;
 import com.fengxuechao.pojo.vo.OrderVO;
 

@@ -2,7 +2,7 @@ package com.fengxuechao.service.center;
 
 import com.fengxuechao.pojo.Orders;
 import com.fengxuechao.pojo.vo.OrderStatusCountsVO;
-import com.fengxuechao.utils.PagedGridResult;
+import com.fengxuechao.pojo.PagedGridResult;
 
 public interface MyOrdersService {
 

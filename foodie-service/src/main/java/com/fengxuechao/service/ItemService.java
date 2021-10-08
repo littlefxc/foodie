@@ -6,7 +6,7 @@ import com.fengxuechao.pojo.ItemsParam;
 import com.fengxuechao.pojo.ItemsSpec;
 import com.fengxuechao.pojo.vo.CommentLevelCountsVO;
 import com.fengxuechao.pojo.vo.ShopcartVO;
-import com.fengxuechao.utils.PagedGridResult;
+import com.fengxuechao.pojo.PagedGridResult;
 
 import java.util.List;
 

@@ -5,7 +5,7 @@ import com.fengxuechao.pojo.Users;
 import com.fengxuechao.pojo.vo.UsersVO;
 import com.fengxuechao.service.center.MyOrdersService;
 import com.fengxuechao.utils.RedisOperator;
-import com.fengxuechao.utils.ResultBean;
+import com.fengxuechao.pojo.ResultBean;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

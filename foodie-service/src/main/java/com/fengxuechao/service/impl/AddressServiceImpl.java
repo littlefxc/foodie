@@ -4,7 +4,7 @@ import com.fengxuechao.mapper.UserAddressMapper;
 import com.fengxuechao.pojo.UserAddress;
 import com.fengxuechao.pojo.bo.AddressBO;
 import com.fengxuechao.service.AddressService;
-import com.fengxuechao.utils.enums.YesOrNo;
+import com.fengxuechao.enums.YesOrNo;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

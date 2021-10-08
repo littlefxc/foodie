@@ -14,7 +14,12 @@
     <dependencies>
         <dependency>
             <groupId>com.fengxuechao</groupId>
-            <artifactId>foodie-common</artifactId>
+            <artifactId>foodie-cloud-common</artifactId>
+            <version>${foodie.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fengxuechao</groupId>
+            <artifactId>foodie-cloud-shared-pojo</artifactId>
             <version>${foodie.version}</version>
         </dependency>
         <dependency>

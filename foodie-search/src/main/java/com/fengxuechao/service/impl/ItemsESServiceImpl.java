@@ -2,7 +2,7 @@ package com.fengxuechao.service.impl;
 
 import com.fengxuechao.es.pojo.Items;
 import com.fengxuechao.service.ItemsESService;
-import com.fengxuechao.utils.PagedGridResult;
+import com.fengxuechao.pojo.PagedGridResult;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;

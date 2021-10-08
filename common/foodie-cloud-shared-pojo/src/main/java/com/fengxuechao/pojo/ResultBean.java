@@ -1,4 +1,4 @@
-package com.fengxuechao.utils;
+package com.fengxuechao.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;

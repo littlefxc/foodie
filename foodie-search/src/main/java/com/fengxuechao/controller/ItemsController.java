@@ -1,8 +1,8 @@
 package com.fengxuechao.controller;
 
 import com.fengxuechao.service.ItemsESService;
-import com.fengxuechao.utils.PagedGridResult;
-import com.fengxuechao.utils.ResultBean;
+import com.fengxuechao.pojo.PagedGridResult;
+import com.fengxuechao.pojo.ResultBean;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

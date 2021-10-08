@@ -1,6 +1,7 @@
 package com.fengxuechao.controller.center;
 
 import com.fengxuechao.controller.BaseController;
+import com.fengxuechao.pojo.ResultBean;
 import com.fengxuechao.pojo.Users;
 import com.fengxuechao.pojo.bo.center.CenterUserBO;
 import com.fengxuechao.pojo.vo.UsersVO;

@@ -1,7 +1,7 @@
 package com.fengxuechao.controller;
 
 import com.fengxuechao.pojo.OrderStatus;
-import com.fengxuechao.pojo.bo.ShopcartBO;
+import com.fengxuechao.pojo.ShopcartBO;
 import com.fengxuechao.pojo.bo.SubmitOrderBO;
 import com.fengxuechao.pojo.vo.MerchantOrdersVO;
 import com.fengxuechao.pojo.vo.OrderVO;
@@ -9,16 +9,15 @@ import com.fengxuechao.service.OrderService;
 import com.fengxuechao.utils.CookieUtils;
 import com.fengxuechao.utils.JsonUtils;
 import com.fengxuechao.utils.RedisOperator;
-import com.fengxuechao.utils.ResultBean;
-import com.fengxuechao.utils.enums.OrderStatusEnum;
-import com.fengxuechao.utils.enums.PayMethod;
+import com.fengxuechao.pojo.ResultBean;
+import com.fengxuechao.enums.OrderStatusEnum;
+import com.fengxuechao.enums.PayMethod;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

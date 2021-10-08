@@ -6,7 +6,7 @@ import com.fengxuechao.resourse.FileResource;
 import com.fengxuechao.service.FdfsService;
 import com.fengxuechao.service.center.CenterUserService;
 import com.fengxuechao.utils.CookieUtils;
-import com.fengxuechao.utils.ResultBean;
+import com.fengxuechao.pojo.ResultBean;
 import com.fengxuechao.utils.JsonUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

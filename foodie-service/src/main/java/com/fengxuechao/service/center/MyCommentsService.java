@@ -2,7 +2,7 @@ package com.fengxuechao.service.center;
 
 import com.fengxuechao.pojo.OrderItems;
 import com.fengxuechao.pojo.bo.center.OrderItemsCommentBO;
-import com.fengxuechao.utils.PagedGridResult;
+import com.fengxuechao.pojo.PagedGridResult;
 
 import java.util.List;
 

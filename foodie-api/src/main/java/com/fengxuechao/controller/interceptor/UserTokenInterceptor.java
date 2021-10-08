@@ -2,7 +2,7 @@ package com.fengxuechao.controller.interceptor;
 
 import com.fengxuechao.utils.JsonUtils;
 import com.fengxuechao.utils.RedisOperator;
-import com.fengxuechao.utils.ResultBean;
+import com.fengxuechao.pojo.ResultBean;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;

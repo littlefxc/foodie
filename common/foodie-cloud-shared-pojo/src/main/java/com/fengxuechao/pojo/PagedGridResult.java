@@ -1,4 +1,4 @@
-package com.fengxuechao.utils;
+package com.fengxuechao.pojo;
 
 import java.util.List;
 

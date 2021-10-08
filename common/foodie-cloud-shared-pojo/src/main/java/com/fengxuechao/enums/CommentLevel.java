@@ -1,4 +1,4 @@
-package com.fengxuechao.utils.enums;
+package com.fengxuechao.enums;
 
 /**
  * @Desc: 商品评价等级 枚举

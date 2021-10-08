@@ -1,6 +1,6 @@
-package com.fengxuechao.service.impl.center;
+package com.fengxuechao.service;
 
-import com.fengxuechao.utils.PagedGridResult;
+import com.fengxuechao.pojo.PagedGridResult;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;

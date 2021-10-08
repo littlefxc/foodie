@@ -2,7 +2,7 @@ package com.fengxuechao.controller.center;
 
 import com.fengxuechao.pojo.Users;
 import com.fengxuechao.service.center.CenterUserService;
-import com.fengxuechao.utils.ResultBean;
+import com.fengxuechao.pojo.ResultBean;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

@@ -1,6 +1,6 @@
 package com.fengxuechao.service;
 
-import com.fengxuechao.utils.PagedGridResult;
+import com.fengxuechao.pojo.PagedGridResult;
 
 public interface ItemsESService {
 

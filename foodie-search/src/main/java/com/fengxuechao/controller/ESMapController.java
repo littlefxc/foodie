@@ -2,7 +2,7 @@ package com.fengxuechao.controller;
 
 import com.fengxuechao.es.pojo.User;
 import com.fengxuechao.es.pojo.search.GeoBoundingBoxEntity;
-import com.fengxuechao.utils.ResultBean;
+import com.fengxuechao.pojo.ResultBean;
 import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.index.query.*;

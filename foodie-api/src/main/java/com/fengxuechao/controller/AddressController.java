@@ -3,7 +3,7 @@ package com.fengxuechao.controller;
 import com.fengxuechao.pojo.UserAddress;
 import com.fengxuechao.pojo.bo.AddressBO;
 import com.fengxuechao.service.AddressService;
-import com.fengxuechao.utils.ResultBean;
+import com.fengxuechao.pojo.ResultBean;
 import com.fengxuechao.utils.MobileEmailUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

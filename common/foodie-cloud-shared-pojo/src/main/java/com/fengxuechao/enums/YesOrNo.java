@@ -1,4 +1,4 @@
-package com.fengxuechao.utils.enums;
+package com.fengxuechao.enums;
 
 /**
  * @Desc: 是否 枚举

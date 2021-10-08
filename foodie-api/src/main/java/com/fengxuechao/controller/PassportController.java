@@ -1,13 +1,13 @@
 package com.fengxuechao.controller;
 
 import com.fengxuechao.pojo.Users;
-import com.fengxuechao.pojo.bo.ShopcartBO;
+import com.fengxuechao.pojo.ShopcartBO;
 import com.fengxuechao.pojo.bo.UserBO;
 import com.fengxuechao.pojo.vo.UsersVO;
 import com.fengxuechao.service.UserService;
 import com.fengxuechao.utils.CookieUtils;
 import com.fengxuechao.utils.RedisOperator;
-import com.fengxuechao.utils.ResultBean;
+import com.fengxuechao.pojo.ResultBean;
 import com.fengxuechao.utils.JsonUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,8 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.fengxuechao.controller.BaseController.FOODIE_SHOPCART;
 
 /**
  * @author fengxuechao
