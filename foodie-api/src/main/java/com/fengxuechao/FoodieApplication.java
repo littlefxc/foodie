@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
@@ -26,6 +27,7 @@ import javax.sql.DataSource;
 @EnableScheduling       // 开启定时任务
 //@EnableRedisHttpSession // 开启使用redis作为spring session
 @SpringBootApplication
+@EnableDiscoveryClient
 public class FoodieApplication {
     public static void main(String[] args) {
         System.err.println(System.getProperty("java.library.path"));
