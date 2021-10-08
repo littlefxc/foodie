@@ -6,28 +6,26 @@
         <artifactId>foodie</artifactId>
         <groupId>com.fengxuechao</groupId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>foodie-pojo</artifactId>
+    <artifactId>foodie-cloud-web-components</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.fengxuechao</groupId>
-            <artifactId>foodie-cloud-web-components</artifactId>
+            <artifactId>foodie-cloud-common</artifactId>
             <version>${foodie.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.fengxuechao</groupId>
-            <artifactId>foodie-cloud-shared-pojo</artifactId>
-            <version>${foodie.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>persistence-api</artifactId>
-            <version>1.0</version>
-            <optional>true</optional>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
     </dependencies>
-
 </project>

@@ -23,6 +23,7 @@
         <module>trace/user-app-service</module>
         <module>netty/netty-demo</module>
         <module>common/foodie-cloud-shared-pojo</module>
+        <module>common/foodie-cloud-web-components</module>
     </modules>
 
     <properties>

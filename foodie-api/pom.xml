@@ -18,6 +18,11 @@
             <version>${foodie.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.fengxuechao</groupId>
+            <artifactId>foodie-cloud-web-components</artifactId>
+            <version>${foodie.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
