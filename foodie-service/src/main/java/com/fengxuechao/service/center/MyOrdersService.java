@@ -1,6 +1,7 @@
 package com.fengxuechao.service.center;
 
 import com.fengxuechao.pojo.Orders;
+import com.fengxuechao.pojo.ResultBean;
 import com.fengxuechao.pojo.vo.OrderStatusCountsVO;
 import com.fengxuechao.pojo.PagedGridResult;
 
@@ -68,4 +69,10 @@ public interface MyOrdersService {
     public PagedGridResult getOrdersTrend(String userId,
                                           Integer page,
                                           Integer pageSize);
+
+    /**
+     * 用于验证用户和订单是否有关联关系，避免非法用户调用
+     * @return
+     */
+    ResultBean checkUserOrder(String userId, String orderId);
 }

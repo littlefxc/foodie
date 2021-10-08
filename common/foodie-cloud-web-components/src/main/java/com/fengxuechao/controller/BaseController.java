@@ -1,9 +1,5 @@
 package com.fengxuechao.controller;
 
-import com.fengxuechao.pojo.Orders;
-import com.fengxuechao.pojo.Users;
-import com.fengxuechao.pojo.vo.UsersVO;
-import com.fengxuechao.service.center.MyOrdersService;
 import com.fengxuechao.utils.RedisOperator;
 import com.fengxuechao.pojo.ResultBean;
 import org.springframework.beans.BeanUtils;
@@ -15,9 +11,6 @@ import java.util.UUID;
 
 @Controller
 public class BaseController {
-
-    @Autowired
-    private RedisOperator redisOperator;
 
     public static final String FOODIE_SHOPCART = "shopcart";
 
@@ -40,31 +33,31 @@ public class BaseController {
                                                             File.separator + "faces";
 //    public static final String IMAGE_USER_FACE_LOCATION = "/workspaces/images/foodie/faces";
 
-
-    @Autowired
-    public MyOrdersService myOrdersService;
-
-    /**
-     * 用于验证用户和订单是否有关联关系，避免非法用户调用
-     * @return
-     */
-    public ResultBean checkUserOrder(String userId, String orderId) {
-        Orders order = myOrdersService.queryMyOrder(userId, orderId);
-        if (order == null) {
-            return ResultBean.errorMsg("订单不存在！");
-        }
-        return ResultBean.ok(order);
-    }
-
-    public UsersVO conventUsersVO(Users user) {
-        // 实现用户的redis会话
-        String uniqueToken = UUID.randomUUID().toString().trim();
-        redisOperator.set(REDIS_USER_TOKEN + ":" + user.getId(),
-                uniqueToken);
-
-        UsersVO usersVO = new UsersVO();
-        BeanUtils.copyProperties(user, usersVO);
-        usersVO.setUserUniqueToken(uniqueToken);
-        return usersVO;
-    }
+    // FIXME 下面的逻辑移植到订单中心
+//    @Autowired
+//    public MyOrdersService myOrdersService;
+//
+//    /**
+//     * 用于验证用户和订单是否有关联关系，避免非法用户调用
+//     * @return
+//     */
+//    public ResultBean checkUserOrder(String userId, String orderId) {
+//        Orders order = myOrdersService.queryMyOrder(userId, orderId);
+//        if (order == null) {
+//            return ResultBean.errorMsg("订单不存在！");
+//        }
+//        return ResultBean.ok(order);
+//    }
+//
+//    public UsersVO conventUsersVO(Users user) {
+//        // 实现用户的redis会话
+//        String uniqueToken = UUID.randomUUID().toString().trim();
+//        redisOperator.set(REDIS_USER_TOKEN + ":" + user.getId(),
+//                uniqueToken);
+//
+//        UsersVO usersVO = new UsersVO();
+//        BeanUtils.copyProperties(user, usersVO);
+//        usersVO.setUserUniqueToken(uniqueToken);
+//        return usersVO;
+//    }
 }

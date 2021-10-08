@@ -1,17 +1,18 @@
 package com.fengxuechao.service.impl.center;
 
+import com.fengxuechao.enums.OrderStatusEnum;
+import com.fengxuechao.enums.YesOrNo;
 import com.fengxuechao.mapper.OrderStatusMapper;
 import com.fengxuechao.mapper.OrdersMapper;
 import com.fengxuechao.mapper.OrdersMapperCustom;
 import com.fengxuechao.pojo.OrderStatus;
 import com.fengxuechao.pojo.Orders;
+import com.fengxuechao.pojo.PagedGridResult;
+import com.fengxuechao.pojo.ResultBean;
 import com.fengxuechao.pojo.vo.MyOrdersVO;
 import com.fengxuechao.pojo.vo.OrderStatusCountsVO;
 import com.fengxuechao.service.BaseService;
 import com.fengxuechao.service.center.MyOrdersService;
-import com.fengxuechao.pojo.PagedGridResult;
-import com.fengxuechao.enums.OrderStatusEnum;
-import com.fengxuechao.enums.YesOrNo;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -168,5 +169,17 @@ public class MyOrdersServiceImpl extends BaseService implements MyOrdersService 
         List<OrderStatus> list = ordersMapperCustom.getMyOrderTrend(map);
 
         return setterPagedGrid(list, page);
+    }
+
+    /**
+     * 用于验证用户和订单是否有关联关系，避免非法用户调用
+     * @return
+     */
+    public ResultBean checkUserOrder(String userId, String orderId) {
+        Orders order = queryMyOrder(userId, orderId);
+        if (order == null) {
+            return ResultBean.errorMsg("订单不存在！");
+        }
+        return ResultBean.ok(order);
     }
 }

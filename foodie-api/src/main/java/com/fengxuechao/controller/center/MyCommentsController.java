@@ -8,6 +8,8 @@ import com.fengxuechao.service.center.MyCommentsService;
 import com.fengxuechao.pojo.ResultBean;
 import com.fengxuechao.pojo.PagedGridResult;
 import com.fengxuechao.enums.YesOrNo;
+import com.fengxuechao.service.center.MyOrdersService;
+import com.fengxuechao.utils.RedisOperator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -26,6 +28,12 @@ public class MyCommentsController extends BaseController {
     @Autowired
     private MyCommentsService myCommentsService;
 
+    @Autowired
+    private MyOrdersService myOrdersService;
+
+    @Autowired
+    private RedisOperator redisOperator;
+
     @ApiOperation(value = "查询订单列表", notes = "查询订单列表", httpMethod = "POST")
     @PostMapping("/pending")
     public ResultBean pending(
@@ -35,7 +43,7 @@ public class MyCommentsController extends BaseController {
             @RequestParam String orderId) {
 
         // 判断用户和订单是否关联
-        ResultBean checkResult = checkUserOrder(userId, orderId);
+        ResultBean checkResult = myOrdersService.checkUserOrder(userId, orderId);
         if (checkResult.getStatus() != HttpStatus.OK.value()) {
             return checkResult;
         }
@@ -63,7 +71,7 @@ public class MyCommentsController extends BaseController {
         System.out.println(commentList);
 
         // 判断用户和订单是否关联
-        ResultBean checkResult = checkUserOrder(userId, orderId);
+        ResultBean checkResult = myOrdersService.checkUserOrder(userId, orderId);
         if (checkResult.getStatus() != HttpStatus.OK.value()) {
             return checkResult;
         }
@@ -102,5 +110,7 @@ public class MyCommentsController extends BaseController {
 
         return ResultBean.ok(grid);
     }
+
+
 
 }

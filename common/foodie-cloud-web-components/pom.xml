@@ -24,8 +24,9 @@
             <version>${foodie.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <groupId>com.fengxuechao</groupId>
+            <artifactId>foodie-cloud-shared-pojo</artifactId>
+            <version>${foodie.version}</version>
         </dependency>
     </dependencies>
 </project>

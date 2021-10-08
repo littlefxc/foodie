@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -30,6 +31,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Api(value = "用户信息接口", tags = {"用户信息相关接口"})
 @RestController
@@ -190,6 +192,21 @@ public class CenterUserController extends BaseController {
         userResult.setUpdatedTime(null);
         userResult.setBirthday(null);
         return userResult;
+    }
+
+    @Autowired
+    private RedisOperator redisOperator;
+
+    public UsersVO conventUsersVO(Users user) {
+        // 实现用户的redis会话
+        String uniqueToken = UUID.randomUUID().toString().trim();
+        redisOperator.set(REDIS_USER_TOKEN + ":" + user.getId(),
+                uniqueToken);
+
+        UsersVO usersVO = new UsersVO();
+        BeanUtils.copyProperties(user, usersVO);
+        usersVO.setUserUniqueToken(uniqueToken);
+        return usersVO;
     }
 
 }

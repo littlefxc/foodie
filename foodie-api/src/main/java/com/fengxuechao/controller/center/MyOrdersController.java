@@ -1,23 +1,32 @@
 package com.fengxuechao.controller.center;
 
 import com.fengxuechao.controller.BaseController;
+import com.fengxuechao.pojo.Orders;
 import com.fengxuechao.pojo.PagedGridResult;
 import com.fengxuechao.pojo.ResultBean;
+import com.fengxuechao.pojo.Users;
 import com.fengxuechao.pojo.vo.OrderStatusCountsVO;
+import com.fengxuechao.pojo.vo.UsersVO;
+import com.fengxuechao.service.center.MyOrdersService;
+import com.fengxuechao.utils.RedisOperator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @Api(value = "用户中心我的订单", tags = {"用户中心我的订单相关接口"})
 @RestController
 @RequestMapping("myorders")
 public class MyOrdersController extends BaseController {
 
-//    @Autowired
-//    private MyOrdersService myOrdersService;
+    @Autowired
+    private MyOrdersService myOrdersService;
 
     @ApiOperation(value = "获得订单状态数概况", notes = "获得订单状态数概况", httpMethod = "POST")
     @PostMapping("/statusCounts")
@@ -88,7 +97,7 @@ public class MyOrdersController extends BaseController {
             @ApiParam(name = "userId", value = "用户id", required = true)
             @RequestParam String userId) throws Exception {
 
-        ResultBean checkResult = checkUserOrder(userId, orderId);
+        ResultBean checkResult = myOrdersService.checkUserOrder(userId, orderId);
         if (checkResult.getStatus() != HttpStatus.OK.value()) {
             return checkResult;
         }
@@ -109,7 +118,7 @@ public class MyOrdersController extends BaseController {
             @ApiParam(name = "userId", value = "用户id", required = true)
             @RequestParam String userId) throws Exception {
 
-        ResultBean checkResult = checkUserOrder(userId, orderId);
+        ResultBean checkResult = myOrdersService.checkUserOrder(userId, orderId);
         if (checkResult.getStatus() != HttpStatus.OK.value()) {
             return checkResult;
         }
@@ -162,5 +171,4 @@ public class MyOrdersController extends BaseController {
 
         return ResultBean.ok(grid);
     }
-
 }
