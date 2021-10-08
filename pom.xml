@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>foodie-common</module>
+        <module>foodie-cloud-common</module>
         <module>foodie-pojo</module>
         <module>foodie-mapper</module>
         <module>foodie-service</module>
