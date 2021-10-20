@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO" schema="Log4J-V2.0.xsd" monitorInterval="600" >
+    <Properties>
+        <Property name="LOG_HOME">logs</Property>
+        <property name="FILE_NAME">foodie-item</property>
+        <!-- [%d{yyyy-MM-dd'T'HH:mm:ss.SSSZZ}] : 用的是UTC时间，原因是 ELK 是UTC时间，为了保持一致 -->
+        <!-- [%level{length=5}] : 日志级别 -->
+        <!-- [%thread-%tid] : 线程ID -->
+        <!-- [%logger] : 日志输出的具体信息 -->
+        <!-- [%X{hostName}] [%X{ip}] [%X{applicationName}] : X 代表 MDC 自定义的日志输出 -->
+        <!-- [%F,%L,%C,%M] :  -->
+        <!-- [%m] : message，代表要打印的日志内容-->
+        <!-- '%ex'%n : ex 代表异常， %n 代表换行 -->
+        <property name="patternLayout">[%d{yyyy-MM-dd'T'HH:mm:ss.SSSZZ}] [%level{length=5}] [%thread-%tid] [%logger] [%X{hostName}] [%X{ip}] [%X{applicationName}] [%F,%L,%C,%M] [%m] ## '%ex'%n</property>
+    </Properties>
+    <Appenders>
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout pattern="${patternLayout}"/>
+        </Console>  
+        <RollingRandomAccessFile name="appAppender" fileName="${LOG_HOME}/app-${FILE_NAME}.log" filePattern="${LOG_HOME}/app-${FILE_NAME}-%d{yyyy-MM-dd}-%i.log" >
+          <PatternLayout pattern="${patternLayout}" />
+          <Policies>
+              <TimeBasedTriggeringPolicy interval="1"/>
+              <SizeBasedTriggeringPolicy size="500MB"/>
+          </Policies>
+          <DefaultRolloverStrategy max="20"/>         
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="errorAppender" fileName="${LOG_HOME}/error-${FILE_NAME}.log" filePattern="${LOG_HOME}/error-${FILE_NAME}-%d{yyyy-MM-dd}-%i.log" >
+          <PatternLayout pattern="${patternLayout}" />
+          <Filters>
+              <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+          </Filters>              
+          <Policies>
+              <TimeBasedTriggeringPolicy interval="1"/>
+              <SizeBasedTriggeringPolicy size="500MB"/>
+          </Policies>
+          <DefaultRolloverStrategy max="20"/>         
+        </RollingRandomAccessFile>            
+    </Appenders>
+    <Loggers>
+        <!-- 业务相关 异步logger -->
+        <AsyncLogger name="com.fengxuechao.item.*" level="info" includeLocation="true">
+          <AppenderRef ref="appAppender"/>
+        </AsyncLogger>
+        <AsyncLogger name="com.fengxuechao.item.*" level="info" includeLocation="true">
+          <AppenderRef ref="errorAppender"/>
+        </AsyncLogger>       
+        <Root level="info">
+            <Appender-Ref ref="CONSOLE"/>
+            <Appender-Ref ref="appAppender"/>
+            <AppenderRef ref="errorAppender"/>
+        </Root>         
+    </Loggers>
+</Configuration>
