@@ -1,4 +1,4 @@
-package com.fengxuechao.pojo;
+package com.fengxuechao.cart.pojo;
 
 import lombok.Data;
 

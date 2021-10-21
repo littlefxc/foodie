@@ -1,6 +1,6 @@
 package com.fengxuechao.cart.service;
 
-import com.fengxuechao.pojo.ShopcartBO;
+import com.fengxuechao.cart.pojo.ShopcartBO;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

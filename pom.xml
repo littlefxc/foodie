@@ -40,6 +40,8 @@
         <module>domain/cart/foodie-cart-api</module>
         <module>domain/cart/foodie-cart-service</module>
         <module>domain/cart/foodie-cart-web</module>
+        <module>domain/order/foodie-order-pojo</module>
+        <module>domain/cart/foodie-cart-pojo</module>
     </modules>
 
     <properties>

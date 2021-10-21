@@ -1,7 +1,7 @@
 package com.fengxuechao.cart.service.impl;
 
 import com.fengxuechao.cart.service.CartService;
-import com.fengxuechao.pojo.ShopcartBO;
+import com.fengxuechao.cart.pojo.ShopcartBO;
 import com.fengxuechao.utils.JsonUtils;
 import com.fengxuechao.utils.RedisOperator;
 import lombok.extern.slf4j.Slf4j;

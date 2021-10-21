@@ -3,7 +3,7 @@ package com.fengxuechao.cart.controller;
 import com.fengxuechao.cart.service.CartService;
 import com.fengxuechao.controller.BaseController;
 import com.fengxuechao.pojo.ResultBean;
-import com.fengxuechao.pojo.ShopcartBO;
+import com.fengxuechao.cart.pojo.ShopcartBO;
 import com.fengxuechao.utils.RedisOperator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
