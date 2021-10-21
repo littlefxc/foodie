@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+  redis:
+    database: 0
+    host: loaclhost
+    port: 6379
+  cache:
+    type: caffeine
+    cache-names: teacher
+    caffeine:
+      spec: maximumSize=500,expireAfterAccess=600s
+  zipkin:
+    enabled: false
+  sleuth:
+    enabled: false
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

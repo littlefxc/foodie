@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: foodie-order
+  profiles:
+    include: nacos

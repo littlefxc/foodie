@@ -20,9 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 public class ShopcatController extends BaseController {
 
     @Autowired
-    private RedisOperator redisOperator;
-
-    @Autowired
     private CartService cartService;
 
     @ApiOperation(value = "添加商品到购物车", notes = "添加商品到购物车", httpMethod = "POST")
