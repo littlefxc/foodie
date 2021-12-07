@@ -1,22 +1,24 @@
 package com.fengxuechao.order.controller;
 
-import com.fengxuechao.order.service.OrderService;
-import com.fengxuechao.controller.BaseController;
-import com.fengxuechao.order.pojo.OrderStatus;
 import com.fengxuechao.cart.pojo.ShopcartBO;
+import com.fengxuechao.controller.BaseController;
+import com.fengxuechao.enums.OrderStatusEnum;
+import com.fengxuechao.enums.PayMethod;
+import com.fengxuechao.order.pojo.OrderStatus;
 import com.fengxuechao.order.pojo.bo.PlaceOrderBO;
 import com.fengxuechao.order.pojo.bo.SubmitOrderBO;
 import com.fengxuechao.order.pojo.vo.MerchantOrdersVO;
 import com.fengxuechao.order.pojo.vo.OrderVO;
+import com.fengxuechao.order.service.OrderService;
+import com.fengxuechao.pojo.ResultBean;
 import com.fengxuechao.utils.CookieUtils;
 import com.fengxuechao.utils.JsonUtils;
 import com.fengxuechao.utils.RedisOperator;
-import com.fengxuechao.pojo.ResultBean;
-import com.fengxuechao.enums.OrderStatusEnum;
-import com.fengxuechao.enums.PayMethod;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,10 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Api(value = "订单相关", tags = {"订单相关的api接口"})
 @RequestMapping("orders")
@@ -47,12 +52,52 @@ public class OrdersController extends BaseController {
     @Autowired
     private RedisOperator redisOperator;
 
+    @Autowired
+    private RedissonClient redissonClient;
+
+    /**
+     * 幂等性
+     *
+     * @param session
+     * @return
+     */
+    @ApiOperation(value = "获取订单Token", notes = "获取订单Token", httpMethod = "POST")
+    @PostMapping("getOrderToken")
+    public ResultBean getOrderToken(HttpSession session) {
+        String token = UUID.randomUUID().toString();
+        redisOperator.set("ORDER_TOKEN" + session.getId(), token, 600);
+        return ResultBean.ok(token);
+    }
+
     @ApiOperation(value = "用户下单", notes = "用户下单", httpMethod = "POST")
     @PostMapping("/create")
     public ResultBean create(
             @RequestBody SubmitOrderBO submitOrderBO,
             HttpServletRequest request,
             HttpServletResponse response) {
+
+        // 幂等性
+        String orderTokenKey = "ORDER_TOKEN" + request.getSession().getId();
+        String orderToken = redisOperator.get(orderTokenKey);
+        // 分布式锁
+        String lockKey = "LOCK_KEY_" + orderTokenKey;
+        RLock orderTokenLock = redissonClient.getLock(lockKey);
+        orderTokenLock.lock(5, TimeUnit.SECONDS);
+        try {
+            if (StringUtils.isBlank(orderToken)) {
+                throw new RuntimeException("orderToken 不存在");
+            }
+            boolean correctOrderToken = orderToken.equals(submitOrderBO.getOrderToken());
+            if (!correctOrderToken) {
+                throw new RuntimeException("orderToken 不正确");
+            }
+            redisOperator.del(orderTokenKey);
+        } finally {
+            try {
+                orderTokenLock.unlock();
+            } catch (Exception e) {
+            }
+        }
 
         if (!submitOrderBO.getPayMethod().equals(PayMethod.WEIXIN.type)
                 && !submitOrderBO.getPayMethod().equals(PayMethod.ALIPAY.type)) {
@@ -95,8 +140,8 @@ public class OrdersController extends BaseController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("foodieUserId","imooc");
-        headers.add("password","imooc");
+        headers.add("foodieUserId", "imooc");
+        headers.add("password", "imooc");
 
         HttpEntity<MerchantOrdersVO> entity = new HttpEntity<>(merchantOrdersVO, headers);
 
