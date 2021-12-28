@@ -46,6 +46,8 @@
         <module>domain/order/foodie-order-api</module>
         <module>domain/order/foodie-order-service</module>
         <module>domain/order/foodie-order-web</module>
+        <!-- 限流 -->
+        <module>rate-limiter</module>
     </modules>
 
     <properties>
