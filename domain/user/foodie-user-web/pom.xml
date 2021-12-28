@@ -30,6 +30,11 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>foodie-cart-pojo</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>foodie-cloud-web-components</artifactId>
             <version>${project.version}</version>
         </dependency>

@@ -2,7 +2,7 @@ package com.fengxuechao.user.controller;
 
 import com.fengxuechao.controller.BaseController;
 import com.fengxuechao.pojo.ResultBean;
-import com.fengxuechao.pojo.ShopcartBO;
+import com.fengxuechao.cart.pojo.ShopcartBO;
 import com.fengxuechao.user.pojo.Users;
 import com.fengxuechao.user.pojo.bo.UserBO;
 import com.fengxuechao.user.pojo.vo.UsersVO;
