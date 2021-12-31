@@ -11,15 +11,13 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>foodie-pojo</module>
+        <!--<module>foodie-pojo</module>
         <module>foodie-mapper</module>
         <module>foodie-service</module>
         <module>foodie-api</module>
         <module>foodie-sso</module>
         <module>foodie-search</module>
-        <module>foodie-fs</module>
-        <!--<module>generator</module>-->
-        <module>trace/user-app-service</module>
+        <module>foodie-fs</module>-->
         <!--<module>netty/netty-demo</module>-->
         <!-- foodie-cloud -->
         <module>common/foodie-cloud-common</module>
