@@ -1,5 +1,5 @@
 spring:
   application:
-    name: foodie-order
+    name: foodie-order-service
   profiles:
     include: nacos

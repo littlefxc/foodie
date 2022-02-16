@@ -19,10 +19,12 @@
         <module>foodie-search</module>
         <module>foodie-fs</module>-->
         <!--<module>netty/netty-demo</module>-->
+
         <!-- foodie-cloud -->
         <module>common/foodie-cloud-common</module>
         <module>common/foodie-cloud-shared-pojo</module>
         <module>common/foodie-cloud-web-components</module>
+
         <module>domain/auth/foodie-auth-api</module>
         <module>domain/auth/foodie-auth-service</module>
         <module>domain/item/foodie-item-pojo</module>
@@ -44,8 +46,25 @@
         <module>domain/order/foodie-order-api</module>
         <module>domain/order/foodie-order-service</module>
         <module>domain/order/foodie-order-web</module>
+
         <!-- 限流 -->
-        <module>rate-limiter</module>
+        <!--<module>rate-limiter</module>-->
+        <!-- 分布式锁 -->
+        <!--<module>DistributeLock/distribute-demo</module>
+        <module>DistributeLock/distribute-lock</module>
+        <module>DistributeLock/distribute-zk-lock</module>
+        <module>DistributeLock/redisson-lock</module>-->
+        <!-- kafka 相关 -->
+        <!--<module>kafka/collector</module>
+        <module>kafka/kafka-consumer</module>
+        <module>kafka/kafka-producer</module>-->
+        <!-- rabbitmq -->
+        <!--<module>rabbitmq/es-job</module>
+        <module>rabbitmq/rabbit-consumer</module>
+        <module>rabbitmq/rabbit-producer</module>
+        <module>rabbitmq/rabbit-parent</module>
+        <module>rabbitmq/rabbit-test</module>
+        <module>rabbitmq/rabbitmq-api</module>-->
     </modules>
 
     <properties>

@@ -26,7 +26,7 @@ public class RedisLuaAccessLimiter {
             StringRedisTemplate stringRedisTemplate,
             @Value("classpath:/ratelimiter.lua") Resource resource) {
         this.redisTemplate = stringRedisTemplate;
-        redisScript = RedisScript.of(resource);
+        redisScript = RedisScript.of(resource, Boolean.class);
     }
 
     public void limitAccess(String key, Integer limit) {

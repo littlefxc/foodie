@@ -53,3 +53,42 @@ mybatis:
 pagehelper:
   helperDialect: mysql
   supportMethodsArguments: true
+
+# ribbon 全局配置
+ribbon:
+  ConnectTimeout: 1000
+  ReadTimeout: 2000
+
+# ribbon 局部超时配置，优先级高于 ribbon 全局配置
+# MAX(Response Time) = (ConnectTimeout + ReadTimeout) * (MaxAutoRetries + 1) * (MaxAutoRetriesNextServer + 1)
+foodie-item-service:
+  ribbon:
+    # 这个参数指定了什么HTTP Method可以进行Retry，这里为了演示方便才设置为true，表示不管GET还是POST什么都能重试。
+    # 真实的生产环境往往只是GET请求可以重试，或者实现了幂等性的其他类型请求。
+    OkToRetryOnAllOperations: true
+    # 超时判定的第一个参数（单位ms），创建会话的连接时间。
+    # 注意，这个不是服务的响应时间，而是本机和服务建立一个Connection所花费的时间，如果连接超时则直接进行重试。
+    ConnectTimeout: 1000
+    # 超时判定的第二个参数，服务响应时间。
+    # 当连接建立好之后，如果对方服务没有在规定时间内返回，则直接进行重试
+    ReadTimeout: 2000
+    # 求极限关键参数之一，当前节点重试次数。
+    # 这里重试次数为2，那么在首次调用超时以后，会再次向同一个服务节点发起最多2次重试（总共向当前节点1+2=3次请求）。
+    MaxAutoRetries: 2
+    # 求极限关键参数之二，换N个节点重试。
+    # 这里N=2，就是说在当前机器调用超时后，Feign将最多换N台机器发起调用
+    #（注意，这里将和第一个参数共同作用，也就是说，在新机器上超时后，会继续重试MaxAutoRetries+1次）。
+    MaxAutoRetriesNextServer: 2
+
+# feign 超时配置，优先级高于 ribbon 配置，配置属性是覆盖关系
+feign:
+  client:
+    config:
+      # 全局默认配置
+      default:
+        connectionTimeout: 1000
+        readTimeout: 3000
+      # 局部配置
+      foodie-item-service:
+        connectionTimeout: 1000
+        readTimeout: 4000
