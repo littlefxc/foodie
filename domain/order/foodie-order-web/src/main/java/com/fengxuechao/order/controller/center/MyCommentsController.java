@@ -10,6 +10,7 @@ import com.fengxuechao.pojo.ResultBean;
 import com.fengxuechao.order.pojo.bo.center.OrderItemsCommentBO;
 import com.fengxuechao.order.service.center.MyCommentsService;
 import com.fengxuechao.order.service.center.MyOrdersService;
+import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -31,6 +32,9 @@ public class MyCommentsController extends BaseController {
     @Autowired
 //    private ItemCommentsService itemCommentsService;
     private ItemCommentsFeignClient itemCommentsService;
+
+    @Autowired
+    private HystrixRequestCacheService hystrixRequestCacheService;
 
     @Autowired
     private MyOrdersService myOrdersService;
@@ -105,13 +109,22 @@ public class MyCommentsController extends BaseController {
             pageSize = COMMON_PAGE_SIZE;
         }
 
-        PagedGridResult grid = itemCommentsService.queryMyComments(userId,
-                page,
-                pageSize);
+         PagedGridResult grid = itemCommentsService.queryMyComments(userId, page, pageSize);
+         return ResultBean.ok(grid);
 
-        return ResultBean.ok(grid);
+        /*HystrixRequestContext context = HystrixRequestContext.initializeContext();
+        try {
+            // 测试 Hystrix 的 RequestCache 的减压，RequestCache 的具体表现就是客户端连续调用两次，实际只会调用后段远程服务一次。
+            // RequestCacheService 上下文可以让方法只被调用一次
+            // RequestCache 需要在配置文件中开启：hystrix.command.default.requestCache.enabled=true
+            PagedGridResult grid = hystrixRequestCacheService.requestCache(userId, page, pageSize);
+            grid = hystrixRequestCacheService.requestCache(userId, page, pageSize);
+            return ResultBean.ok(grid);
+        } finally {
+            context.close();
+        }*/
+
     }
-
 
 
 }

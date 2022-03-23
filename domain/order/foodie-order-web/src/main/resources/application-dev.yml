@@ -19,3 +19,8 @@ spring:
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 超时配置
+hystrix.command.cacheKey.execution.isolation.thread.timeoutInMilliseconds: 3000
+# 开启访问缓存功能
+hystrix.command.default.requestCache.enabled: true
