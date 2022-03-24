@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Map;
 
-/**
- * Created by 半仙.
- */
 @Component
 public class ItemCommentsFallbackFactory implements FallbackFactory<ItemCommentsFeignClient> {
 
