@@ -1,11 +1,13 @@
 package com.fengxuechao.order;
 
 import com.fengxuechao.item.service.ItemService;
+import com.fengxuechao.order.fallback.itemservice.ItemCommentsFallbackFactory;
 import com.fengxuechao.order.fallback.itemservice.ItemCommentsFeignClient;
 import com.fengxuechao.user.service.AddressService;
 import com.fengxuechao.user.service.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;

@@ -5,12 +5,11 @@ import com.fengxuechao.enums.YesOrNo;
 import com.fengxuechao.order.fallback.itemservice.ItemCommentsFeignClient;
 import com.fengxuechao.order.pojo.OrderItems;
 import com.fengxuechao.order.pojo.Orders;
-import com.fengxuechao.pojo.PagedGridResult;
-import com.fengxuechao.pojo.ResultBean;
 import com.fengxuechao.order.pojo.bo.center.OrderItemsCommentBO;
 import com.fengxuechao.order.service.center.MyCommentsService;
 import com.fengxuechao.order.service.center.MyOrdersService;
-import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
+import com.fengxuechao.pojo.PagedGridResult;
+import com.fengxuechao.pojo.ResultBean;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -109,8 +108,8 @@ public class MyCommentsController extends BaseController {
             pageSize = COMMON_PAGE_SIZE;
         }
 
-         PagedGridResult grid = itemCommentsService.queryMyComments(userId, page, pageSize);
-         return ResultBean.ok(grid);
+        PagedGridResult grid = itemCommentsService.queryMyComments(userId, page, pageSize);
+        return ResultBean.ok(grid);
 
         /*HystrixRequestContext context = HystrixRequestContext.initializeContext();
         try {

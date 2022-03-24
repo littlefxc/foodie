@@ -92,3 +92,29 @@ feign:
       foodie-item-service:
         connectionTimeout: 1000
         readTimeout: 4000
+  hystrix:
+    enabled: true
+
+hystrix.command.default.fallback.enabled: true
+# 超时配置
+hystrix.command.default.execution.timeout.enabled: true
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 3000
+# 开启访问缓存功能
+hystrix.command.default.requestCache.enabled: true
+
+# 正经参数
+# 熔断的前提条件（请求的数量），在一定的时间窗口内，请求达到 5 个以后，才开始进行熔断判断
+hystrix.command.default.circuitBreaker.requestVolumeThreshold: 5
+# 超过该百分比的失败请求，则熔断开关开启
+hystrix.command.default.circuitBreaker.errorThresholdPercentage: 50
+# 当熔断开启后，进过多少秒后再进入半开状态（时间通常小于配置时间窗口值）
+hystrix.command.default.circuitBreaker.sleepWindowInMilliseconds: 15*1000
+# 配置时间窗口
+hystrix.command.default.metrics.rollingStats.timeInMilliseconds: 20*1000
+
+# 打酱油的参数
+hystrix.command.default.circuitBreaker.enabled: true
+# 强制开启熔断开关
+hystrix.command.default.circuitBreaker.forceOpen: false
+# 强制关闭熔断开关
+hystrix.command.default.circuitBreaker.forceClose: false
