@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: hystrix-turbine
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_SERVER_ADDR:127.0.0.1:8848}
+        file-extension: properties
+        group: dev
+      discovery:
+        server-addr: ${NACOS_SERVER_ADDR:127.0.0.1:8848}
+        group: dev
+
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  dashboard:
+    # hystrix dashboard用,如果不加这条hystrix启动后也会出现hystrix.dashboard.proxyStreamAllowList
+    proxy-stream-allow-list: "localhost,127.0.0.1"
+
+turbine:
+  aggregator:
+    # cluster1,cluster2
+    clusterConfig: default
+  #  app-config: foodie-user-service,foodie-item-service,foodie-order-service
+  app-config: foodie-order-service,foodie-user-service,foodie-item-service,foodie-cart-serviceww
+  cluster-name-expression: '"default"'
+  # 根据host + port的形式组合来进行区分
+  combine-host-port: true
+
+management: #hystrix dashboard用,actuator暴露端口
+  endpoints:
+    web:
+      exposure:
+        include: "*,hystrix.stream,turbine.stream"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"

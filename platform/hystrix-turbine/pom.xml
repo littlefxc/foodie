@@ -6,11 +6,11 @@
         <artifactId>foodie</artifactId>
         <groupId>com.fengxuechao</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../../../pom.xml</relativePath>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>foodie-order-service</artifactId>
+    <artifactId>hystrix-turbine</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -19,36 +19,18 @@
 
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>foodie-order-mapper</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- 用户服务接口层 -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>foodie-user-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- 订单服务接口层 -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>foodie-order-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- 商品服务依赖 -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>foodie-item-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- TODO 学到Feign章节以后，就可以把它删掉 -->
-        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
         <dependency>
@@ -61,10 +43,15 @@
             <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
         </dependency>
 
-        <!-- stream -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+            <artifactId>spring-cloud-starter-netflix-turbine</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

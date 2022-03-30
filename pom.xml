@@ -46,6 +46,7 @@
         <module>domain/order/foodie-order-api</module>
         <module>domain/order/foodie-order-service</module>
         <module>domain/order/foodie-order-web</module>
+        <module>platform/hystrix-turbine</module>
 
         <!-- 限流 -->
         <!--<module>rate-limiter</module>-->

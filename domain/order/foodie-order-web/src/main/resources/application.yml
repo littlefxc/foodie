@@ -101,6 +101,7 @@ hystrix.command.default.execution.timeout.enabled: true
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 3000
 # 开启访问缓存功能
 hystrix.command.default.requestCache.enabled: true
+hystrix.command.cacheKey.execution.isolation.thread.timeoutInMilliseconds: 3000
 
 # 正经参数
 # 熔断的前提条件（请求的数量），在一定的时间窗口内，请求达到 5 个以后，才开始进行熔断判断
@@ -118,3 +119,9 @@ hystrix.command.default.circuitBreaker.enabled: true
 hystrix.command.default.circuitBreaker.forceOpen: false
 # 强制关闭熔断开关
 hystrix.command.default.circuitBreaker.forceClose: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

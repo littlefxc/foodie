@@ -21,8 +21,8 @@ public class HystrixRequestCacheService {
     private ItemCommentsFeignClient itemCommentsService;
 
     @CacheResult
-    @HystrixCommand
-    public PagedGridResult requestCache(String userId, Integer page, Integer pageSize) {
+    @HystrixCommand(commandKey = "cacheKey")
+    public PagedGridResult requestCache(@CacheKey String userId, Integer page, Integer pageSize) {
         log.info("request cache: userId = {}, page = {}, pageSize = {}", userId, page, pageSize);
         PagedGridResult grid = itemCommentsService.queryMyComments(userId, page, pageSize);
         log.info("after requesting cache: userId = {}, page = {}, pageSize = {}", userId, page, pageSize);
