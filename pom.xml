@@ -48,6 +48,9 @@
         <module>domain/order/foodie-order-web</module>
         <module>platform/hystrix-turbine</module>
 
+        <module>test/rocketmq-producer</module>
+        <module>test/rocketmq-consumer</module>
+
         <!-- 限流 -->
         <!--<module>rate-limiter</module>-->
         <!-- 分布式锁 -->
