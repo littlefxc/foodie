@@ -2,4 +2,5 @@ spring:
   application:
     name: foodie-user
   profiles:
+    active: dev
     include: nacos

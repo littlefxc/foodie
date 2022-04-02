@@ -10,6 +10,9 @@ import com.fengxuechao.user.service.UserService;
 import com.fengxuechao.utils.CookieUtils;
 import com.fengxuechao.utils.JsonUtils;
 import com.fengxuechao.utils.RedisOperator;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import com.netflix.ribbon.proxy.annotation.Hystrix;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -114,6 +117,29 @@ public class PassportController extends BaseController {
 
     @ApiOperation(value = "用户登录", notes = "用户登录", httpMethod = "POST")
     @PostMapping("/login")
+    /*@HystrixCommand(
+            commandKey = "loginFail",                            // 全局唯一的标识符
+            groupKey = "password",                               // 全局服务分组，用于组织仪表盘，统计信息
+            fallbackMethod = "loginFail",                        // 同一个类里，public private 都可以
+            ignoreExceptions = {IllegalArgumentException.class}, // 在列表中的 exception, 不会触发降级
+            threadPoolKey = "threadPoolA",                       // 线程组，多个服务可以共用一个线程组
+            threadPoolProperties = {
+                    // 核心线程数
+                    @HystrixProperty(name = "coreSize", value = "20"),
+                    // size > 0, LinkedBlockingQueue -> 请求等待队列;
+                    // 默认 size = -1, SynchronousQueue -> 不储存元素的阻塞队列;
+                    @HystrixProperty(name = "maxQueueSize", value = "40"),
+                    // 在 maxQueueSize = -1 时无效, 队列没有达到 maxQueueSize 依然拒绝
+                    @HystrixProperty(name = "queueSizeRejectionThreshold", value = "15"),
+                    // (线程池)统计窗口持续时间
+                    @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "3000"),
+                    // (线程池)统计窗口持续时间内桶子的数量
+                    @HystrixProperty(name = "metrics.rollingStats.numBuckets", value = "18")
+            },
+            commandProperties = {
+                    // 熔断降级相关属性也可以放在这里了
+            }
+    )*/
     public ResultBean<Object> login(@RequestBody UserBO userBO,
                             HttpServletRequest request,
                             HttpServletResponse response) throws Exception {
@@ -147,6 +173,23 @@ public class PassportController extends BaseController {
 
         return ResultBean.ok(userResult);
     }
+
+    /**
+     * 熔断服务
+     * @param userBO
+     * @param request
+     * @param response
+     * @param throwable
+     * @return
+     * @throws Exception
+     */
+    private ResultBean<Object> loginFail(@RequestBody UserBO userBO,
+                                    HttpServletRequest request,
+                                    HttpServletResponse response,
+                                        Throwable throwable) throws Exception {
+        return ResultBean.errorMsg("验证码错误（模仿 12306）");
+    }
+
 
     /**
      * 注册登录成功后，同步cookie和redis中的购物车数据

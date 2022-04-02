@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * @author fengxuechao
  * @date 2021/8/12
  */
-@Configuration
+//@Configuration
 public class AprConfig implements WebServerFactoryCustomizer<WebServerFactory> {
 
     /**

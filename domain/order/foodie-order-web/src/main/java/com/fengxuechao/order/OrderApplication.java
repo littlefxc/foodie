@@ -35,11 +35,6 @@ import tk.mybatis.spring.annotation.MapperScan;
                 UserService.class,
                 AddressService.class
         }
-//        basePackages = {
-//            "com.fengxuechao.user.service",
-//            "com.fengxuechao.item.service",
-//            "com.fengxuechao.order.fallback.itemservice"
-//        }
 )
 public class OrderApplication {
 
