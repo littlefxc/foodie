@@ -24,7 +24,6 @@
         <module>common/foodie-cloud-common</module>
         <module>common/foodie-cloud-shared-pojo</module>
         <module>common/foodie-cloud-web-components</module>
-
         <module>domain/auth/foodie-auth-api</module>
         <module>domain/auth/foodie-auth-service</module>
         <module>domain/item/foodie-item-pojo</module>
@@ -48,6 +47,7 @@
         <module>domain/order/foodie-order-web</module>
         <module>platform/hystrix-turbine</module>
 
+        <!-- test -->
         <module>test/rocketmq-producer</module>
         <module>test/rocketmq-consumer</module>
 
