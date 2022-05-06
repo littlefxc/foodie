@@ -50,6 +50,7 @@
         <!-- test -->
         <module>test/rocketmq-producer</module>
         <module>test/rocketmq-consumer</module>
+        <module>platform/gateway</module>
 
         <!-- 限流 -->
         <!--<module>rate-limiter</module>-->

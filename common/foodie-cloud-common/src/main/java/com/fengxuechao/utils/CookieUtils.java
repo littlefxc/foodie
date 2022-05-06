@@ -190,7 +190,9 @@ public final class CookieUtils {
             if (cookieMaxage > 0)
                 cookie.setMaxAge(cookieMaxage);
             if (null != request) {// 设置域名的cookie
-                String domainName = getDomainName(request);
+                // String domainName = getDomainName(request);
+                // TODO FIXME 上线之前改回来（仅限 localhost 访问）
+                String domainName = "localhost";
                 logger.info("========== domainName: {} ==========", domainName);
                 if (!"localhost".equals(domainName)) {
                     cookie.setDomain(domainName);

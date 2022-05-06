@@ -1,8 +1,12 @@
 package com.fengxuechao.user.controller;
 
+import com.fengxuechao.auth.service.AuthService;
+import com.fengxuechao.auth.service.pojo.Account;
+import com.fengxuechao.auth.service.pojo.AuthCode;
+import com.fengxuechao.auth.service.pojo.AuthResponse;
+import com.fengxuechao.cart.pojo.ShopcartBO;
 import com.fengxuechao.controller.BaseController;
 import com.fengxuechao.pojo.ResultBean;
-import com.fengxuechao.cart.pojo.ShopcartBO;
 import com.fengxuechao.user.pojo.Users;
 import com.fengxuechao.user.pojo.bo.UserBO;
 import com.fengxuechao.user.pojo.vo.UsersVO;
@@ -10,11 +14,9 @@ import com.fengxuechao.user.service.UserService;
 import com.fengxuechao.utils.CookieUtils;
 import com.fengxuechao.utils.JsonUtils;
 import com.fengxuechao.utils.RedisOperator;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
-import com.netflix.ribbon.proxy.annotation.Hystrix;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,27 +25,35 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
 /**
  * @author fengxuechao
  */
+@Slf4j
 @Api(value = "注册登录", tags = {"用于注册登录的相关接口"})
 @RestController
 @RequestMapping("passport")
 public class PassportController extends BaseController {
 
+    /**
+     * @see # com.fengxuechao.gateway.filter.AuthFilter
+     */
+    private static final String AUTH_HEADER = "Authorization";
+    private static final String REFRESH_TOKEN_HEADER = "refresh-token";
+    private static final String UID_HEADER = "foodie-user-id";
     private final UserService userService;
-
     private final PasswordEncoder passwordEncoder;
-
     private final RedisOperator redisOperator;
+    private final AuthService authService;
 
-    public PassportController(UserService userService, PasswordEncoder passwordEncoder, RedisOperator redisOperator) {
+    public PassportController(UserService userService, PasswordEncoder passwordEncoder, RedisOperator redisOperator, AuthService authService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.redisOperator = redisOperator;
+        this.authService = authService;
     }
 
     @ApiOperation(value = "用户名是否存在", notes = "用户名是否存在", httpMethod = "GET")
@@ -68,8 +78,8 @@ public class PassportController extends BaseController {
     @ApiOperation(value = "用户注册", notes = "用户注册", httpMethod = "POST")
     @PostMapping("/regist")
     public ResultBean<Object> regist(@RequestBody UserBO userBO,
-                             HttpServletRequest request,
-                             HttpServletResponse response) {
+                                     HttpServletRequest request,
+                                     HttpServletResponse response) {
 
         String username = userBO.getUsername();
         String password = userBO.getPassword();
@@ -141,8 +151,8 @@ public class PassportController extends BaseController {
             }
     )*/
     public ResultBean<Object> login(@RequestBody UserBO userBO,
-                            HttpServletRequest request,
-                            HttpServletResponse response) throws Exception {
+                                    HttpServletRequest request,
+                                    HttpServletResponse response) throws Exception {
 
         String username = userBO.getUsername();
         String password = userBO.getPassword();
@@ -156,12 +166,17 @@ public class PassportController extends BaseController {
         // 1. 实现登录
         Users userResult = userService.findByUsername(username);
 
-        if (userResult == null) {
-            return ResultBean.errorMsg("用户名不存在");
+        if (userResult == null || !passwordEncoder.matches(password, userResult.getPassword())) {
+            return ResultBean.errorMsg("用户名或密码不正确");
         }
-        if (!passwordEncoder.matches(password, userResult.getPassword())) {
-            return ResultBean.errorMsg("密码错误");
+
+        AuthResponse token = authService.tokenize(userResult.getId());
+        if (!AuthCode.SUCCESS.getCode().equals(token.getCode())) {
+            log.error("Token error - uid={}", userResult.getId());
+            return ResultBean.errorMsg("Token error");
         }
+        // 将 token 添加到 Header 当中
+        addAuth2Header(response, token);
 
         userResult = setNullProperty(userResult);
         // 生成用户token，存入redis会话
@@ -174,8 +189,23 @@ public class PassportController extends BaseController {
         return ResultBean.ok(userResult);
     }
 
+    // TODO 修改前端 JS 代码
+    // 在前端页面里拿到 Authorization、refresh-token、foodie-user-id
+    // 前端每次请求服务，都把这几个参数带上
+    private void addAuth2Header(HttpServletResponse response, AuthResponse token) {
+        response.setHeader(AUTH_HEADER, token.getAccount().getToken());
+        response.setHeader(REFRESH_TOKEN_HEADER, token.getAccount().getRefreshToken());
+        response.setHeader(UID_HEADER, token.getAccount().getUserId());
+
+        // 让前端感知到，过期时间一天，这样就可以在临近过期的时间 refresh token
+        Calendar expireTime = Calendar.getInstance();
+        expireTime.add(Calendar.DAY_OF_MONTH, 1);
+        response.setHeader("token-exp-time", expireTime.getTimeInMillis() + "");
+    }
+
     /**
      * 熔断服务
+     *
      * @param userBO
      * @param request
      * @param response
@@ -184,9 +214,9 @@ public class PassportController extends BaseController {
      * @throws Exception
      */
     private ResultBean<Object> loginFail(@RequestBody UserBO userBO,
-                                    HttpServletRequest request,
-                                    HttpServletResponse response,
-                                        Throwable throwable) throws Exception {
+                                         HttpServletRequest request,
+                                         HttpServletResponse response,
+                                         Throwable throwable) throws Exception {
         return ResultBean.errorMsg("验证码错误（模仿 12306）");
     }
 
@@ -284,8 +314,18 @@ public class PassportController extends BaseController {
     @ApiOperation(value = "用户退出登录", notes = "用户退出登录", httpMethod = "POST")
     @PostMapping("/logout")
     public ResultBean<Object> logout(@RequestParam String userId,
-                             HttpServletRequest request,
-                             HttpServletResponse response) {
+                                     HttpServletRequest request,
+                                     HttpServletResponse response) {
+        Account account = Account.builder()
+                .token(request.getHeader(AUTH_HEADER))
+                .refreshToken(request.getHeader(REFRESH_TOKEN_HEADER))
+                .userId(userId)
+                .build();
+        AuthResponse authResponse = authService.delete(account);
+        if (!AuthCode.SUCCESS.getCode().equals(authResponse.getCode())) {
+            log.error("Token error - uid={}", userId);
+            return ResultBean.errorMsg("Token error");
+        }
 
         // 清除用户的相关信息的cookie
         CookieUtils.deleteCookie(request, response, "user");
@@ -294,7 +334,7 @@ public class PassportController extends BaseController {
         redisOperator.del(REDIS_USER_TOKEN + ":" + userId);
 
         // 分布式会话中需要清除用户数据
-        CookieUtils.deleteCookie(request,response,FOODIE_SHOPCART);
+        CookieUtils.deleteCookie(request, response, FOODIE_SHOPCART);
 
         return ResultBean.ok();
     }

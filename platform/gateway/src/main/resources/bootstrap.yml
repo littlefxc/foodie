@@ -1,0 +1,40 @@
+server:
+  port: 65000
+spring:
+  application:
+    name: gateway
+  profiles:
+    active: dev
+    include: nacos
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            # 返回的资源共享给请求来源
+            allowed-origins:
+              - "http://localhost:8080"
+              - "http://shop.z.mukewang.com:8080"
+              - "http://center.z.mukewang.com:8080"
+              - "http://shop.z.mukewang.com"
+              - "http://center.z.mukewang.com"
+              - "*"
+            # 比如cookie, authorization之类的认证信息
+            allow-credentials: true
+            allowed-headers: "*"
+            allowed-methods: "*"
+            expose-headers: "*"
+            # 表示Options可以在浏览器缓存多长时间
+            max-age: 600
+      discovery:
+        # 自动创建路由
+        locator:
+          enabled: true
+      routes:
+        - id: item-service
+          uri: lb://foodie-item-service
+          predicates:
+            - Path=/yml/**
+          filters:
+            # 切断前缀: /yml/** => /**
+            - StripPrefix=1

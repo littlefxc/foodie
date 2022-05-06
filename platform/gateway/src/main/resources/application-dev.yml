@@ -1,0 +1,9 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+  redis:
+    host: localhost
+    port: 6379
