@@ -2,4 +2,5 @@ spring:
   application:
     name: foodie-item-service
   profiles:
+    active: dev
     include: nacos

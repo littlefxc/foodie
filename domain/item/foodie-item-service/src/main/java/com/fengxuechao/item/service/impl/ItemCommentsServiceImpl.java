@@ -6,6 +6,7 @@ import com.fengxuechao.item.pojo.vo.MyCommentVO;
 import com.fengxuechao.item.service.ItemCommentsService;
 import com.fengxuechao.pojo.PagedGridResult;
 import com.fengxuechao.service.BaseService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ import java.util.Map;
 /**
  * Created by fengxuechao.
  */
+@Slf4j
 @RestController
 public class ItemCommentsServiceImpl extends BaseService implements ItemCommentsService {
 
@@ -34,6 +36,7 @@ public class ItemCommentsServiceImpl extends BaseService implements ItemComments
         Map<String, Object> map = new HashMap<>();
         map.put("userId", userId);
 
+        log.info("feign - 查询我的评价 - {}, {}, {}", userId, page, pageSize);
         PageHelper.startPage(page, pageSize);
         List<MyCommentVO> list = itemsCommentsMapperCustom.queryMyComments(map);
 

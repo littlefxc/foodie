@@ -14,6 +14,7 @@ import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Api(value = "用户中心评价模块", tags = {"用户中心评价模块相关接口"})
+@Slf4j
 @RestController
 @RequestMapping("mycomments")
 public class MyCommentsController extends BaseController {
@@ -109,6 +111,7 @@ public class MyCommentsController extends BaseController {
             pageSize = COMMON_PAGE_SIZE;
         }
 
+        log.info("feign - 查询我的评价 - {}, {}, {}", userId, page, pageSize);
         PagedGridResult grid = itemCommentsService.queryMyComments(userId, page, pageSize);
         return ResultBean.ok(grid);
 
