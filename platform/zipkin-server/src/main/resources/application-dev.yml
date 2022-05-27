@@ -1,0 +1,9 @@
+zipkin:
+  storage:
+    type: elasticsearch
+    elasticsearch:
+      hosts: localhost:9200
+      index-replicas: 0
+  collector:
+    kafka:
+      bootstrap-servers: localhost:9092

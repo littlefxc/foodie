@@ -13,6 +13,7 @@ import zipkin2.server.internal.EnableZipkinServer;
 public class ZipkinServerApplication {
 
     public static void main(String[] args) {
+        System.setProperty("KAFKA_BOOTSTRAP_SERVERS", "localhost:9200");
         SpringApplication.run(ZipkinServerApplication.class, args);
     }
 }

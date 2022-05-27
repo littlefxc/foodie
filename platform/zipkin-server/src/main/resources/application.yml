@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: zipkin-server
+  profiles:
+    active: dev
+    include: shared
