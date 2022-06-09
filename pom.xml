@@ -46,12 +46,16 @@
         <module>domain/order/foodie-order-service</module>
         <module>domain/order/foodie-order-web</module>
         <module>platform/hystrix-turbine</module>
+        <module>platform/gateway</module>
+        <module>platform/zipkin-server</module>
 
         <!-- test -->
         <module>test/rocketmq-producer</module>
         <module>test/rocketmq-consumer</module>
-        <module>platform/gateway</module>
-        <module>platform/zipkin-server</module>
+        <module>test/sentinel/sentinel-demo-test</module>
+        <module>test/dubbo/dubbo-api</module>
+        <module>test/dubbo/dubbo-clinet</module>
+        <module>test/dubbo/dubbo-consumer</module>
 
         <!-- 限流 -->
         <!--<module>rate-limiter</module>-->
